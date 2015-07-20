@@ -861,3 +861,4 @@ goback
 end ConICDSQL
 
 %include inc_GetParm
+%include inc_GetOption
