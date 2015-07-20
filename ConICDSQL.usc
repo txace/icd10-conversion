@@ -8,11 +8,11 @@
 '   AUTHOR: Rob Beckham
 '   DATE CREATED: 6/29/2015
 
-start ConICDSQL()
-'$trace("path.on", "/c1/RAUT/SCRIPT/S/ConICDSQLTRC")
+start ConICDSQL(parmfile, option, retcode)
 
-%reexecutable
-
+   parmfile          is x        ' Configuration File
+   option            is x        ' Configuration Override options
+   retcode           is b        ' Script return code
 '=================================================
 'Local Variables Declarations
 '=================================================
@@ -76,6 +76,35 @@ start ConICDSQL()
    C.DXACT           is x         ' Reason for Action
    C.CR.DIAG         is d         ' Sent to CARE Flag
 
+   MAP_c.dx.rh       is x
+   MAP_c.dg.id       is x
+   MAP_c.dxstaf      is x
+   MAP_c.dxdate      is x
+   MAP_c.pridx       is x
+   MAP_c.pa.aai      is x
+   MAP_c.pa.adsa1    is x
+   MAP_c.dxaslev     is x
+   MAP_c.pa.aaii     is x
+   MAP_c.pa.adsa2    is x
+   MAP_c.dxaxlev3    is x
+   MAP_c.pa.aaiii    is x
+   MAP_c.pa.adsa3    is x
+   MAP_c.pa.adsa3a   is x
+   MAP_c.pa.aaiv     is x
+   MAP_c.dxaxlvl2    is x
+   MAP_c.axdxlvl3    is x
+   MAP_c.dxaxlvl4    is x
+   MAP_c.dxaxlvl5    is x
+   MAP_c.dxaxlvl6    is x
+   MAP_c.dxaxlvl7    is x
+   MAP_c.dxaxlvl8    is x
+   MAP_c.dxaxlvl9    is x
+   MAP_c.dxaxlvl0    is x
+   MAP_c.pa.aav      is x
+   MAP_C.DXACT       is x         ' Reason for Action
+   MAP_C.CR.DIAG     is d         ' Sent to CARE Flag
+
+
 ' ICD-10 Diagnosis
    C.DX10.RH          is h         ' ICD-10 Record Header
    C.DX10.DT          is d         ' Diagnosis Date
@@ -95,7 +124,6 @@ start ConICDSQL()
    C.DX10.A4.NONE     is x         ' No Issues
    C.DX10.A5.GAF      is b         ' Axis 5 (GAF Score)
    C.DX10.CAREDT      is d         ' Sent to CARE Date
-
 
    TheUniq[]          is x
    The9DX[]           is x
@@ -186,6 +214,7 @@ start ConICDSQL()
 '=================================================
 'Initializations
 '=================================================
+   $allowupdate(retcode)
    $looplimit  = 0            ' Max Number of Loops to Make
    NbrClients  = 0            ' Initialize the Client count
    clientstep  = 0            ' No Clients read yet
@@ -193,20 +222,84 @@ start ConICDSQL()
    TheCount    = 0
    listid[1]   = "T031"       ' The Client Saved List to Loop Through
 
+   'Set the initial DSN values used to connect to the SQL Server
+   'o_user = "user"            'SQL Server User
+   'o_pass = "password"        'Password to the SQL Server
+   'o_host = "host"            'The SQL Server
+   'o_db   = "database"        'The SQL Database
+
+   'default the icd 9 mapped dsts to the names declared by the script
+   MAP_c.dx.rh     = $varname(c.dx.rh      )  
+   MAP_c.dg.id     = $varname(c.dg.id      )  
+   MAP_c.dxstaf    = $varname(c.dxstaf     )  
+   MAP_c.dxdate    = $varname(c.dxdate     )  
+   MAP_c.pridx     = $varname(c.pridx      )  
+   MAP_c.pa.aai    = $varname(c.pa.aai     )  
+   MAP_c.pa.adsa1  = $varname(c.pa.adsa1   )  
+   MAP_c.dxaslev   = $varname(c.dxaslev    )  
+   MAP_c.pa.aaii   = $varname(c.pa.aaii    )  
+   MAP_c.pa.adsa2  = $varname(c.pa.adsa2   )  
+   MAP_c.dxaxlev3  = $varname(c.dxaxlev3   )  
+   MAP_c.pa.aaiii  = $varname(c.pa.aaiii   )  
+   MAP_c.pa.adsa3  = $varname(c.pa.adsa3   )  
+   MAP_c.pa.adsa3a = $varname(c.pa.adsa3a  )  
+   MAP_c.pa.aaiv   = $varname(c.pa.aaiv    )  
+   MAP_c.dxaxlvl2  = $varname(c.dxaxlvl2   )  
+   MAP_c.axdxlvl3  = $varname(c.axdxlvl3   )  
+   MAP_c.dxaxlvl4  = $varname(c.dxaxlvl4   )  
+   MAP_c.dxaxlvl5  = $varname(c.dxaxlvl5   )  
+   MAP_c.dxaxlvl6  = $varname(c.dxaxlvl6   )  
+   MAP_c.dxaxlvl7  = $varname(c.dxaxlvl7   )  
+   MAP_c.dxaxlvl8  = $varname(c.dxaxlvl8   )  
+   MAP_c.dxaxlvl9  = $varname(c.dxaxlvl9   )  
+   MAP_c.dxaxlvl0  = $varname(c.dxaxlvl0   )  
+   MAP_c.pa.aav    = $varname(c.pa.aav     )  
+   MAP_C.DXACT     = $varname(C.DXACT      )  
+   MAP_C.CR.DIAG   = $varname(C.CR.DIAG    )  
+
+   'get the parmfile configurations
+   getparm(parmfile)
+   'get the option string overrides
+   getoption(option)
+
    ' Get T365 Save List
    rc = $getlist(id[], 2, listid[1])
    maxClients = $maxarray(id[])
 
-   'Set the initial DSN values used to connect to the SQL Server
-   o_user = "user"            'SQL Server User
-   o_pass = "password"        'Password to the SQL Server
-   o_host = "host"            'The SQL Server
-   o_db   = "database"        'The SQL Database
 
    rc = $loadlib(libf,"LIB-freetds")
 
    dsn = o_user + ":" + o_pass + ":" + o_host + ":" + o_db
    libf:setDSN(dsn)
+
+   'map the icd 9 dsts
+   $setvarname(c.dx.rh     , MAP_c.dx.rh     )  
+   $setvarname(c.dg.id     , MAP_c.dg.id     )  
+   $setvarname(c.dxstaf    , MAP_c.dxstaf    )  
+   $setvarname(c.dxdate    , MAP_c.dxdate    )  
+   $setvarname(c.pridx     , MAP_c.pridx     )  
+   $setvarname(c.pa.aai    , MAP_c.pa.aai    )  
+   $setvarname(c.pa.adsa1  , MAP_c.pa.adsa1  )  
+   $setvarname(c.dxaslev   , MAP_c.dxaslev   )  
+   $setvarname(c.pa.aaii   , MAP_c.pa.aaii   )  
+   $setvarname(c.pa.adsa2  , MAP_c.pa.adsa2  )  
+   $setvarname(c.dxaxlev3  , MAP_c.dxaxlev3  )  
+   $setvarname(c.pa.aaiii  , MAP_c.pa.aaiii  )  
+   $setvarname(c.pa.adsa3  , MAP_c.pa.adsa3  )  
+   $setvarname(c.pa.adsa3a , MAP_c.pa.adsa3a )  
+   $setvarname(c.pa.aaiv   , MAP_c.pa.aaiv   )  
+   $setvarname(c.dxaxlvl2  , MAP_c.dxaxlvl2  )  
+   $setvarname(c.axdxlvl3  , MAP_c.axdxlvl3  )  
+   $setvarname(c.dxaxlvl4  , MAP_c.dxaxlvl4  )  
+   $setvarname(c.dxaxlvl5  , MAP_c.dxaxlvl5  )  
+   $setvarname(c.dxaxlvl6  , MAP_c.dxaxlvl6  )  
+   $setvarname(c.dxaxlvl7  , MAP_c.dxaxlvl7  )  
+   $setvarname(c.dxaxlvl8  , MAP_c.dxaxlvl8  )  
+   $setvarname(c.dxaxlvl9  , MAP_c.dxaxlvl9  )  
+   $setvarname(c.dxaxlvl0  , MAP_c.dxaxlvl0  )  
+   $setvarname(c.pa.aav    , MAP_c.pa.aav    )  
+   $setvarname(C.DXACT     , MAP_C.DXACT     )  
+   $setvarname(C.CR.DIAG   , MAP_C.CR.DIAG   )  
 
 '=================================================
 ' Some Screen / Prompt Stuff
@@ -745,7 +838,7 @@ SQLLookup:
 
    TheCount = $maxarray(TheRow[])
    CountStr = $castx(TheCount)
-   If TheCount = 1
+   If TheCount = 1 then
 
      ' 1 - UniqID, 2 - ICD-9_Code, 3 - ICD-9Description, 4 - ICD-10_Code, 5 - ICD-10_Description, 6 - DSM-4_Axis, 7 - DX-CAT, 8 - EffDt, 9 - EndDt"
       $parsem(TheRow[], 1, "|", TheColumn[])
@@ -766,3 +859,5 @@ SQLLookup:
 goback
 
 end ConICDSQL
+
+%include inc_GetParm
