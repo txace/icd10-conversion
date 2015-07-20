@@ -16,192 +16,192 @@ start ConICDSQL()
 '=================================================
 'Local Variables Declarations
 '=================================================
-	rc				is  b	' Results of I/O callS
-	listid[]			is  x	' Array for Saved List
-	id[]				is  x 	' Array for Client Loop                           
-	NbrClients		is  n	' Number of Clients Read
- 	clientstep		is  n	' Client read from the database
-	maxClients		is  n	' Number of Clients in DB search
-	errCount			is  n	' Number of conversion errors
-	axis4Code[]		is  x	' Array of Axis 4 codes
-	convertErr		is  x	' Diagnosis conversion Error (Y/N)
+   rc            is  b   ' Results of I/O callS
+   listid[]         is  x   ' Array for Saved List
+   id[]            is  x    ' Array for Client Loop                           
+   NbrClients      is  n   ' Number of Clients Read
+    clientstep      is  n   ' Client read from the database
+   maxClients      is  n   ' Number of Clients in DB search
+   errCount         is  n   ' Number of conversion errors
+   axis4Code[]      is  x   ' Array of Axis 4 codes
+   convertErr      is  x   ' Diagnosis conversion Error (Y/N)
 
-	hdr[]			is  x	' Report header lines
-	reportFmt			is  x	' Report Detail Format Line
-	PrintString		is  x	' Output Concatenation String
+   hdr[]         is  x   ' Report header lines
+   reportFmt         is  x   ' Report Detail Format Line
+   PrintString      is  x   ' Output Concatenation String
 
 ' Prompts
-	reportOnly		is  x	' Flag for report only (Y/N)
-	done				is  x	' Flag for Ready to Run
+   reportOnly      is  x   ' Flag for report only (Y/N)
+   done            is  x   ' Flag for Ready to Run
 
 
 ' Client DSTs
-	C.LN				is x		' Last Name
-	C.FN				is x		' First Name
-	C.MN				is x		' Middle Name
+   C.LN            is x      ' Last Name
+   C.FN            is x      ' First Name
+   C.MN            is x      ' Middle Name
                 
         
 ' ICD-9 Diagnosis    
-	c.dx.rh			is h			'DIAGNOSIS RECORD HEADER DST	
-	c.dg.id			is x			'WHO ENTERED DIAGNOSIS DST				
-	c.dxstaf			is x			'WHO DIAGNOSED CLIENT DST				
-	c.dxdate			is d			'DIAGNOSIS DATE DST				
-	c.pridx			is x			'PRIMARY DIAGNOSIS AXIS DST				
-	'*****
-	c.pa.aai			is x			'AXIS 1 LEVEL ONE DST
-	c.pa.adsa1		is x			'AXIS 1 LEVEL TWO DST
-	c.dxaslev			is x			'AXIS 1 LEVEL THREE DST
+   c.dx.rh         is h         'DIAGNOSIS RECORD HEADER DST   
+   c.dg.id         is x         'WHO ENTERED DIAGNOSIS DST            
+   c.dxstaf         is x         'WHO DIAGNOSED CLIENT DST            
+   c.dxdate         is d         'DIAGNOSIS DATE DST            
+   c.pridx         is x         'PRIMARY DIAGNOSIS AXIS DST            
+   '*****
+   c.pa.aai         is x         'AXIS 1 LEVEL ONE DST
+   c.pa.adsa1      is x         'AXIS 1 LEVEL TWO DST
+   c.dxaslev         is x         'AXIS 1 LEVEL THREE DST
 
-	'*****
-	c.pa.aaii			is x			'AXIS 2 LEVEL ONE DST
-	c.pa.adsa2		is x			'AXIS 2 LEVEL TWO DST
-	c.dxaxlev3		is x			'AXIS 2 LEVEL THREE DST
+   '*****
+   c.pa.aaii         is x         'AXIS 2 LEVEL ONE DST
+   c.pa.adsa2      is x         'AXIS 2 LEVEL TWO DST
+   c.dxaxlev3      is x         'AXIS 2 LEVEL THREE DST
  
-	c.pa.aaiii		is x			'AXIS 3 LEVEL ONE DST
-	c.pa.adsa3		is x			'AXIS 3 LEVEL TWO DST
-	c.pa.adsa3a		is x			'AXIS 3 LEVEL THREE DST
-	c.pa.aaiv			is x			'AXIS 4 A DIAGNOSIS DST
-	c.dxaxlvl2		is x			'AXIS 4 B DIAGNOSIS DST
-	c.axdxlvl3		is x			'AXIS 4 C DIAGNOSIS DST
-	c.dxaxlvl4		is x			'AXIS 4 D DIAGNOSIS DST
-	c.dxaxlvl5		is x			'AXIS 4 E DIAGNOSIS DST
-	c.dxaxlvl6		is x			'AXIS 4 F DIAGNOSIS DST
-	c.dxaxlvl7		is x			'AXIS 4 G DIAGNOSIS DST
-	c.dxaxlvl8		is x			'AXIS 4 H DIAGNOSIS DST
-	c.dxaxlvl9		is x			'AXIS 4 I DIAGNOSIS DST
-	c.dxaxlvl0		is x			'AXIS 4 J DIAGNOSIS DST
-	c.pa.aav			is x			'GAF CURRENT SCORE DST
+   c.pa.aaiii      is x         'AXIS 3 LEVEL ONE DST
+   c.pa.adsa3      is x         'AXIS 3 LEVEL TWO DST
+   c.pa.adsa3a      is x         'AXIS 3 LEVEL THREE DST
+   c.pa.aaiv         is x         'AXIS 4 A DIAGNOSIS DST
+   c.dxaxlvl2      is x         'AXIS 4 B DIAGNOSIS DST
+   c.axdxlvl3      is x         'AXIS 4 C DIAGNOSIS DST
+   c.dxaxlvl4      is x         'AXIS 4 D DIAGNOSIS DST
+   c.dxaxlvl5      is x         'AXIS 4 E DIAGNOSIS DST
+   c.dxaxlvl6      is x         'AXIS 4 F DIAGNOSIS DST
+   c.dxaxlvl7      is x         'AXIS 4 G DIAGNOSIS DST
+   c.dxaxlvl8      is x         'AXIS 4 H DIAGNOSIS DST
+   c.dxaxlvl9      is x         'AXIS 4 I DIAGNOSIS DST
+   c.dxaxlvl0      is x         'AXIS 4 J DIAGNOSIS DST
+   c.pa.aav         is x         'GAF CURRENT SCORE DST
 
-'C.ASSESOTH	is x	Outside Assessing Staff Name
-	C.DXACT			is x			' Reason for Action
-	C.CR.DIAG			is d			' Sent to CARE Flag
+'C.ASSESOTH   is x   Outside Assessing Staff Name
+   C.DXACT         is x         ' Reason for Action
+   C.CR.DIAG         is d         ' Sent to CARE Flag
 
 ' ICD-10 Diagnosis
-	C.DX10.RH			is h			' ICD-10 Record Header	
-	C.DX10.DT			is d			' Diagnosis Date
-	C.DX10.STAFF		is x			' Assessing Internal Staff ID
-	C.DX10.REASON		is x			' Reason for Action/When
-	C.DX10.PIMARY.AX	is x			' Axis of Primary DX
+   C.DX10.RH         is h         ' ICD-10 Record Header   
+   C.DX10.DT         is d         ' Diagnosis Date
+   C.DX10.STAFF      is x         ' Assessing Internal Staff ID
+   C.DX10.REASON      is x         ' Reason for Action/When
+   C.DX10.PIMARY.AX   is x         ' Axis of Primary DX
 
-	C.DX10.A4.SUPGRP	is x			' Axis 4 Support Group
-	C.DX10.A4.SOCENV	is x			'	Social Enviroment issue
-	C.DX10.A4.EDU		is x			'	Educational issue
-	C.DX10.A4.OCC		is x			'	Occupational issues
-	C.DX10.A4.HOUSNG	is x			'	Housing Issues	
-	C.DX10.A4.ECO		is x			'	Economic Issues
-	C.DX10.A4.HEALTH	is x			'	Access to Health Care issues
-	C.DX10.A4.LEGAL	is x			'	Legal Issues
-	C.DX10.A4.PSYENV	is x			'	Psychologica Issues
-	C.DX10.A4.NONE		is x			'	No Issues
-	C.DX10.A5.GAF		is b			' Axis 5 (GAF Score)	
-	C.DX10.CAREDT		is d			' Sent to CARE Date
-	
-	
-	TheUniq[] 		is x
-	The9DX[]			is x
-	The9Des[] 		is x
-	The10DX[] 		is x
-	The10Des[]		is x
-	TheDSM[]			is x
-	TheCAT[]			is x
-	TheEffDt[]		is d
-	TheEndDt[]		is d
+   C.DX10.A4.SUPGRP   is x         ' Axis 4 Support Group
+   C.DX10.A4.SOCENV   is x         '   Social Enviroment issue
+   C.DX10.A4.EDU      is x         '   Educational issue
+   C.DX10.A4.OCC      is x         '   Occupational issues
+   C.DX10.A4.HOUSNG   is x         '   Housing Issues   
+   C.DX10.A4.ECO      is x         '   Economic Issues
+   C.DX10.A4.HEALTH   is x         '   Access to Health Care issues
+   C.DX10.A4.LEGAL   is x         '   Legal Issues
+   C.DX10.A4.PSYENV   is x         '   Psychologica Issues
+   C.DX10.A4.NONE      is x         '   No Issues
+   C.DX10.A5.GAF      is b         ' Axis 5 (GAF Score)   
+   C.DX10.CAREDT      is d         ' Sent to CARE Date
+   
+   
+   TheUniq[]       is x
+   The9DX[]         is x
+   The9Des[]       is x
+   The10DX[]       is x
+   The10Des[]      is x
+   TheDSM[]         is x
+   TheCAT[]         is x
+   TheEffDt[]      is d
+   TheEndDt[]      is d
 
 
-	C.DX10.UNIQ.1		is x
-	C.DX10.ICD9.1		is x
-	C.DX10.ICD10.1		is x
-	C.DX10.LEGAX.1		is x
-	C.DX10.DXCAT.1		is x
-	
-	C.DX10.UNIQ.2		is x
-	C.DX10.ICD9.2		is x
-	C.DX10.ICD10.2		is x
-	C.DX10.LEGAX.2		is x
-	C.DX10.DXCAT.2		is x
-	
-	C.DX10.UNIQ.3		is x
-	C.DX10.ICD9.3		is x
-	C.DX10.ICD10.3		is x
-	C.DX10.LEGAX.3		is x
-	C.DX10.DXCAT.3		is x
+   C.DX10.UNIQ.1      is x
+   C.DX10.ICD9.1      is x
+   C.DX10.ICD10.1      is x
+   C.DX10.LEGAX.1      is x
+   C.DX10.DXCAT.1      is x
+   
+   C.DX10.UNIQ.2      is x
+   C.DX10.ICD9.2      is x
+   C.DX10.ICD10.2      is x
+   C.DX10.LEGAX.2      is x
+   C.DX10.DXCAT.2      is x
+   
+   C.DX10.UNIQ.3      is x
+   C.DX10.ICD9.3      is x
+   C.DX10.ICD10.3      is x
+   C.DX10.LEGAX.3      is x
+   C.DX10.DXCAT.3      is x
 
-	C.DX10.UNIQ.4		is x
-	C.DX10.ICD9.4		is x
-	C.DX10.ICD10.4		is x
-	C.DX10.LEGAX.4		is x
-	C.DX10.DXCAT.4		is x
+   C.DX10.UNIQ.4      is x
+   C.DX10.ICD9.4      is x
+   C.DX10.ICD10.4      is x
+   C.DX10.LEGAX.4      is x
+   C.DX10.DXCAT.4      is x
 
-	C.DX10.UNIQ.5		is x
-	C.DX10.ICD9.5		is x
-	C.DX10.ICD10.5		is x
-	C.DX10.LEGAX.5		is x
-	C.DX10.DXCAT.5		is x
-	
-	C.DX10.UNIQ.6		is x
-	C.DX10.ICD9.6		is x
-	C.DX10.ICD10.6		is x
-	C.DX10.LEGAX.6		is x
-	C.DX10.DXCAT.6		is x
-	
-	C.DX10.UNIQ.7		is x
-	C.DX10.ICD9.7		is x
-	C.DX10.ICD10.7		is x
-	C.DX10.LEGAX.7		is x
-	C.DX10.DXCAT.7		is x
-	
-	C.DX10.UNIQ.8		is x
-	C.DX10.ICD9.8		is x
-	C.DX10.ICD10.8		is x
-	C.DX10.LEGAX.8		is x
-	C.DX10.DXCAT.8		is x
-	
-	C.DX10.UNIQ.9		is x
-	C.DX10.ICD9.9		is x
-	C.DX10.ICD10.9		is x
-	C.DX10.LEGAX.9		is x
-	C.DX10.DXCAT.9		is x
-	
+   C.DX10.UNIQ.5      is x
+   C.DX10.ICD9.5      is x
+   C.DX10.ICD10.5      is x
+   C.DX10.LEGAX.5      is x
+   C.DX10.DXCAT.5      is x
+   
+   C.DX10.UNIQ.6      is x
+   C.DX10.ICD9.6      is x
+   C.DX10.ICD10.6      is x
+   C.DX10.LEGAX.6      is x
+   C.DX10.DXCAT.6      is x
+   
+   C.DX10.UNIQ.7      is x
+   C.DX10.ICD9.7      is x
+   C.DX10.ICD10.7      is x
+   C.DX10.LEGAX.7      is x
+   C.DX10.DXCAT.7      is x
+   
+   C.DX10.UNIQ.8      is x
+   C.DX10.ICD9.8      is x
+   C.DX10.ICD10.8      is x
+   C.DX10.LEGAX.8      is x
+   C.DX10.DXCAT.8      is x
+   
+   C.DX10.UNIQ.9      is x
+   C.DX10.ICD9.9      is x
+   C.DX10.ICD10.9      is x
+   C.DX10.LEGAX.9      is x
+   C.DX10.DXCAT.9      is x
+   
 'SQL Variables
-	o_user		is x
-	o_pass		is x
-	o_host		is x
-	o_db		is x
-	
-	dsn		is x
-	libf		is b
-	
-	RowLoop		is i
-	TheError		is x
-	TheCode		is x
-	TheCntQy		is x
-	TheCount		is i
-	CountStr		is x
-	TheQuery		is x
-	Results[]		is x
-	TheRow[]		is x
-	TheColumn[]	is x
-	TheLevel		is i
+   o_user      is x
+   o_pass      is x
+   o_host      is x
+   o_db      is x
+   
+   dsn      is x
+   libf      is b
+   
+   RowLoop      is i
+   TheError      is x
+   TheCode      is x
+   TheCntQy      is x
+   TheCount      is i
+   CountStr      is x
+   TheQuery      is x
+   Results[]      is x
+   TheRow[]      is x
+   TheColumn[]   is x
+   TheLevel      is i
 
 '=================================================
 'Initializations
 '=================================================
-    $looplimit  = 0				' Max Number of Loops to Make
-    NbrClients  = 0				' Initialize the Client count
-    clientstep = 0				' No Clients read yet
-    errCount    = 0				' Number of errors
+    $looplimit  = 0            ' Max Number of Loops to Make
+    NbrClients  = 0            ' Initialize the Client count
+    clientstep = 0            ' No Clients read yet
+    errCount    = 0            ' Number of errors
     TheCount    = 0
-    listid[1]   = "T031"		' The Client Saved List to Loop Through
+    listid[1]   = "T031"      ' The Client Saved List to Loop Through
 
 ' Get T365 Save List
 rc = $getlist(id[], 2, listid[1])
 maxClients = $maxarray(id[])
 
 'Set the initial DSN values used to connect to the SQL Server
-o_user = "CMHC"				'SQL Server User
-o_pass = "gooddata"				'Password to the SQL Server
-o_host = "Fiji"				'The SQL Server
-o_db   = "AUTH"				'The SQL Database
+o_user = "CMHC"            'SQL Server User
+o_pass = "gooddata"            'Password to the SQL Server
+o_host = "Fiji"            'The SQL Server
+o_db   = "AUTH"            'The SQL Database
 
 rc = $loadlib(libf,"LIB-freetds")
 
@@ -268,305 +268,305 @@ do while $maxarray(id[]) >= ++clientstep
 
 $clear(TheError)
 convertErr = "N"        ' No conversion Error
-		
-		'I get confused by these DST names!
-		'CID | LN | FN | HEADER | Date | SID
-		'A1-L1 | A1-L2 | A1-L3
-		'A2-L1 | A2-L2 | A2-L3
-		'A3-L1 | A3-L2 | A3-L3
-		'A4-A | A4-B |A4-C |A4-D | A4-E 
-		'A4-F |A4-G | A4-H | A4-I | A4-J
-		'GAF | ACTION | CARE | DX10 HEADER | DX10 DATE
+      
+      'I get confused by these DST names!
+      'CID | LN | FN | HEADER | Date | SID
+      'A1-L1 | A1-L2 | A1-L3
+      'A2-L1 | A2-L2 | A2-L3
+      'A3-L1 | A3-L2 | A3-L3
+      'A4-A | A4-B |A4-C |A4-D | A4-E 
+      'A4-F |A4-G | A4-H | A4-I | A4-J
+      'GAF | ACTION | CARE | DX10 HEADER | DX10 DATE
 
-	(void) $dbread( 2, 
-		id[clientstep],C.LN,C.FN,c.dx.rh, c.dxdate, c.dg.id,
-		c.pa.aai, c.pa.adsa1, c.dxaslev, 
-		c.pa.aaii, c.pa.adsa2, c.dxaxlev3,
-		c.pa.aaiii, c.pa.adsa3,c.pa.adsa3a,
-		c.pa.aaiv, c.dxaxlvl2, c.axdxlvl3, c.dxaxlvl4, c.dxaxlvl5, 
-		c.dxaxlvl6, c.dxaxlvl7, c.dxaxlvl8, c.dxaxlvl9, c.dxaxlvl0, 
-		c.pa.aav, c.dxact, c.cr.diag, c.pridx, c.dx10.rh, c.dx10.dt)
-
-
-	' Show the Client being processed
-	$disp( $format(clientstep, maxClients,"ZZZ,ZZ9 of ZZZ,ZZ9"), 12, 31, 18,)
-	$disp(id[clientstep], 14, 28, 10,)
+   (void) $dbread( 2, 
+      id[clientstep],C.LN,C.FN,c.dx.rh, c.dxdate, c.dg.id,
+      c.pa.aai, c.pa.adsa1, c.dxaslev, 
+      c.pa.aaii, c.pa.adsa2, c.dxaxlev3,
+      c.pa.aaiii, c.pa.adsa3,c.pa.adsa3a,
+      c.pa.aaiv, c.dxaxlvl2, c.axdxlvl3, c.dxaxlvl4, c.dxaxlvl5, 
+      c.dxaxlvl6, c.dxaxlvl7, c.dxaxlvl8, c.dxaxlvl9, c.dxaxlvl0, 
+      c.pa.aav, c.dxact, c.cr.diag, c.pridx, c.dx10.rh, c.dx10.dt)
 
 
-	' Filter the clients -  Is there an ICD 9 Date without a ICD 10 date?
-	if (c.dxdate DP) 'and c.dx10.dt !DP) then
-		
-		NbrClients++        ' Increment Selected clients
-		TheLevel = 0
+   ' Show the Client being processed
+   $disp( $format(clientstep, maxClients,"ZZZ,ZZ9 of ZZZ,ZZ9"), 12, 31, 18,)
+   $disp(id[clientstep], 14, 28, 10,)
+
+
+   ' Filter the clients -  Is there an ICD 9 Date without a ICD 10 date?
+   if (c.dxdate DP) 'and c.dx10.dt !DP) then
+      
+      NbrClients++        ' Increment Selected clients
+      TheLevel = 0
 
 
 '============================================================================
 ' Handle Data conversion in each Axis, and modify codes as needed.
 '============================================================================
-		' Axis 1
-		if (c.pa.aai  DP
-			and c.pa.aai  != "V7109"
-			and c.pa.aai  != "79990"
-			and c.pa.aai  != "799.9"
-			and c.pa.aai  != "7999") then
-		
-			TheError = "1-1"
-			TheCode = c.pa.aai
-		  			
-			select c.pa.aai
-				case "V4000"
-					TheCode = "V400"
-			endselect
-						  		  	
-		  	++TheLevel
-			gosub SQLLookup
-						
-		endif
+      ' Axis 1
+      if (c.pa.aai  DP
+         and c.pa.aai  != "V7109"
+         and c.pa.aai  != "79990"
+         and c.pa.aai  != "799.9"
+         and c.pa.aai  != "7999") then
+      
+         TheError = "1-1"
+         TheCode = c.pa.aai
+                 
+         select c.pa.aai
+            case "V4000"
+               TheCode = "V400"
+         endselect
+                               
+           ++TheLevel
+         gosub SQLLookup
+                  
+      endif
    
    
    
-		if (c.pa.adsa1 DP
-			and c.pa.adsa1 != "V7109"
-			and c.pa.adsa1 != "79990"
-			and c.pa.adsa1 != "799.9"
-			and c.pa.adsa1 != "7999") then
-		
-			TheError = "1-2"
-			TheCode = c.pa.adsa1
-		  
-			select c.pa.adsa1
-				case "V4000"
-					TheCode = "V400"
-			endselect
-		  	
-		  	++TheLevel	  
-			gosub SQLLookup
-			
-		endif
+      if (c.pa.adsa1 DP
+         and c.pa.adsa1 != "V7109"
+         and c.pa.adsa1 != "79990"
+         and c.pa.adsa1 != "799.9"
+         and c.pa.adsa1 != "7999") then
+      
+         TheError = "1-2"
+         TheCode = c.pa.adsa1
+        
+         select c.pa.adsa1
+            case "V4000"
+               TheCode = "V400"
+         endselect
+           
+           ++TheLevel     
+         gosub SQLLookup
+         
+      endif
     
     
     
-		if (c.dxaxlev3 DP
-			and c.dxaxlev3 != "V7109"
-			and c.dxaxlev3 != "79990"
-			and c.dxaxlev3 != "799.9"
-			and c.dxaxlev3 != "7999") then
+      if (c.dxaxlev3 DP
+         and c.dxaxlev3 != "V7109"
+         and c.dxaxlev3 != "79990"
+         and c.dxaxlev3 != "799.9"
+         and c.dxaxlev3 != "7999") then
 
-			TheError = "1-3"
-			TheCode = c.dxaxlev3
-		 
-			select c.dxaxlev3
-				case "V4000"
-					TheCode = "V400"
-			endselect		  
-		  
-		  	++TheLevel
-		  	gosub SQLLookup
-		  	
-		endif
+         TheError = "1-3"
+         TheCode = c.dxaxlev3
+       
+         select c.dxaxlev3
+            case "V4000"
+               TheCode = "V400"
+         endselect        
+        
+           ++TheLevel
+           gosub SQLLookup
+           
+      endif
 
 
-		
-		' Axis 2
-		if (c.pa.aaii DP
-			and c.pa.aaii != "V7109"
-			and c.pa.aaii != "79990"
-			and c.pa.aaii != "799.9"
-			and c.pa.aaii != "7999") then
-		
-			TheError = "2-1"
-			TheCode = c.pa.aaii
-		   
-			select c.pa.aaii
-				case "V4000"
-					TheCode = "V400"
-			endselect		
-		  	
-		  	++TheLevel	   
-			gosub SQLLookup
-						   
-		endif
+      
+      ' Axis 2
+      if (c.pa.aaii DP
+         and c.pa.aaii != "V7109"
+         and c.pa.aaii != "79990"
+         and c.pa.aaii != "799.9"
+         and c.pa.aaii != "7999") then
+      
+         TheError = "2-1"
+         TheCode = c.pa.aaii
+         
+         select c.pa.aaii
+            case "V4000"
+               TheCode = "V400"
+         endselect      
+           
+           ++TheLevel      
+         gosub SQLLookup
+                     
+      endif
  
  
  
-		if (c.pa.adsa2 DP
-			and c.pa.adsa2 != "V7109"
-			and c.pa.adsa2 != "79990"
-			and c.pa.adsa2 != "799.9"
-			and c.pa.adsa2 != "7999") then
-		
-			TheError = "2-2"
-			TheCode = c.pa.adsa2
-		
-			select  c.pa.adsa2
-				case "V4000"
-					TheCode = "V400"
-			endselect			  	  
-		  	
-		  	++TheLevel
-		  	gosub SQLLookup
-		  			
-		endif
+      if (c.pa.adsa2 DP
+         and c.pa.adsa2 != "V7109"
+         and c.pa.adsa2 != "79990"
+         and c.pa.adsa2 != "799.9"
+         and c.pa.adsa2 != "7999") then
+      
+         TheError = "2-2"
+         TheCode = c.pa.adsa2
+      
+         select  c.pa.adsa2
+            case "V4000"
+               TheCode = "V400"
+         endselect                
+           
+           ++TheLevel
+           gosub SQLLookup
+                 
+      endif
 
 
 
-		if (c.dxaxlev3 DP
-			and c.dxaxlev3 != "V7109"
-			and c.dxaxlev3 != "79990"
-			and c.dxaxlev3 != "799.9"
-			and c.dxaxlev3 != "7999") then
-		
-			TheError = "2-3"
-			TheCode = c.dxaxlev3
+      if (c.dxaxlev3 DP
+         and c.dxaxlev3 != "V7109"
+         and c.dxaxlev3 != "79990"
+         and c.dxaxlev3 != "799.9"
+         and c.dxaxlev3 != "7999") then
+      
+         TheError = "2-3"
+         TheCode = c.dxaxlev3
 
-			select  c.dxaxlev3
-				case "V4000"
-					TheCode = "V400"
-			endselect			  
-		  
-		  	++TheLevel
-			gosub SQLLookup
-			
-		endif
+         select  c.dxaxlev3
+            case "V4000"
+               TheCode = "V400"
+         endselect           
+        
+           ++TheLevel
+         gosub SQLLookup
+         
+      endif
   
   
   
-           	' Axis 3
-		if (c.pa.aaiii DP
-			and c.pa.aaiii != "NONE"
-			and c.pa.aaiii != "V7109"
-			and c.pa.aaiii != "79990"
-			and c.pa.aaiii != "799.9"
-			and c.pa.aaiii != "7999") then
-		
-			TheError = "3-1"
-			TheCode = c.pa.aaiii
+              ' Axis 3
+      if (c.pa.aaiii DP
+         and c.pa.aaiii != "NONE"
+         and c.pa.aaiii != "V7109"
+         and c.pa.aaiii != "79990"
+         and c.pa.aaiii != "799.9"
+         and c.pa.aaiii != "7999") then
+      
+         TheError = "3-1"
+         TheCode = c.pa.aaiii
 
-			select c.pa.aaiii
-				case "054.10" 
-					TheCode = "05410"
-				case "724.5"
-		  			TheCode = "7245"
-				case "338.29"
-					TheCode = "33829"	
-				case "536.3" 
-					TheCode = "5363"
-				case "V65.5"
-					TheCode = "V655"
-				case "345.90" 
-					TheCode = "34590"
-				case "344.0"
-					TheCode = "3440"
-				case	"727.81"
-					TheCode = "72781"	  
-				case "737.30" 
-					TheCode = "73730"
-				case "V43.64" 
-					TheCode = "V4364"
-			endselect		  	  
-		  	
-		  	++TheLevel	  
-			gosub SQLLookup
-			
-		endif
+         select c.pa.aaiii
+            case "054.10" 
+               TheCode = "05410"
+            case "724.5"
+                 TheCode = "7245"
+            case "338.29"
+               TheCode = "33829"   
+            case "536.3" 
+               TheCode = "5363"
+            case "V65.5"
+               TheCode = "V655"
+            case "345.90" 
+               TheCode = "34590"
+            case "344.0"
+               TheCode = "3440"
+            case   "727.81"
+               TheCode = "72781"     
+            case "737.30" 
+               TheCode = "73730"
+            case "V43.64" 
+               TheCode = "V4364"
+         endselect             
+           
+           ++TheLevel     
+         gosub SQLLookup
+         
+      endif
        
        
-		if (c.pa.adsa3 DP
-			and c.pa.adsa3 != "NONE"
-			and c.pa.adsa3 != "V7109"
-			and c.pa.adsa3 != "79990"
-			and c.pa.adsa3 != "799.9"
-			and c.pa.adsa3 != "7999") then
-		
-			TheError = "3-2"
-			TheCode = c.pa.adsa3
-		
-			select c.pa.adsa3
-				case "054.10" 
-					TheCode = "05410"
-				case "724.5"
-		  			TheCode = "7245"
-				case "338.29"
-					TheCode = "33829"	
-				case "536.3" 
-					TheCode = "5363"
-				case "V65.5"
-					TheCode = "V655"
-				case "345.90" 
-					TheCode = "34590"
-				case "344.0"
-					TheCode = "3440"
-				case	"727.81"
-					TheCode = "72781"	  
-				case "737.30" 
-					TheCode = "73730"
-				case "V43.64" 
-					TheCode = "V4364"
-			endselect			  
-		  	  
-		  	++TheLevel  
-		  	gosub SQLLookup
-		  	
-		endif
-	 
-	 
-		if (c.pa.adsa3a DP
-			and c.pa.adsa3a != "NONE"
-			and c.pa.adsa3a != "V7109"
-			and c.pa.adsa3a != "79990"
-			and c.pa.adsa3a != "799.9"
-			and c.pa.adsa3a != "7999") then
+      if (c.pa.adsa3 DP
+         and c.pa.adsa3 != "NONE"
+         and c.pa.adsa3 != "V7109"
+         and c.pa.adsa3 != "79990"
+         and c.pa.adsa3 != "799.9"
+         and c.pa.adsa3 != "7999") then
+      
+         TheError = "3-2"
+         TheCode = c.pa.adsa3
+      
+         select c.pa.adsa3
+            case "054.10" 
+               TheCode = "05410"
+            case "724.5"
+                 TheCode = "7245"
+            case "338.29"
+               TheCode = "33829"   
+            case "536.3" 
+               TheCode = "5363"
+            case "V65.5"
+               TheCode = "V655"
+            case "345.90" 
+               TheCode = "34590"
+            case "344.0"
+               TheCode = "3440"
+            case   "727.81"
+               TheCode = "72781"     
+            case "737.30" 
+               TheCode = "73730"
+            case "V43.64" 
+               TheCode = "V4364"
+         endselect           
+             
+           ++TheLevel  
+           gosub SQLLookup
+           
+      endif
+    
+    
+      if (c.pa.adsa3a DP
+         and c.pa.adsa3a != "NONE"
+         and c.pa.adsa3a != "V7109"
+         and c.pa.adsa3a != "79990"
+         and c.pa.adsa3a != "799.9"
+         and c.pa.adsa3a != "7999") then
 
-			TheError = "3-3"
-			TheCode = c.pa.adsa3a
-	
-			select c.pa.adsa3a
-				case "054.10" 
-					TheCode = "05410"
-				case "724.5"
-		  			TheCode = "7245"
-				case "338.29"
-					TheCode = "33829"	
-				case "536.3" 
-					TheCode = "5363"
-				case "V65.5"
-					TheCode = "V655"
-				case "345.90" 
-					TheCode = "34590"
-				case "344.0"
-					TheCode = "3440"
-				case	"727.81"
-					TheCode = "72781"	  
-				case "737.30" 
-					TheCode = "73730"
-				case "V43.64" 
-					TheCode = "V4364"
-			endselect				  
-		  	 
-			++TheLevel  
-		  	gosub SQLLookup
-		  		
-		endif
-		
-		
-		' Axis 4
-		$clear(axis4Code[])
+         TheError = "3-3"
+         TheCode = c.pa.adsa3a
+   
+         select c.pa.adsa3a
+            case "054.10" 
+               TheCode = "05410"
+            case "724.5"
+                 TheCode = "7245"
+            case "338.29"
+               TheCode = "33829"   
+            case "536.3" 
+               TheCode = "5363"
+            case "V65.5"
+               TheCode = "V655"
+            case "345.90" 
+               TheCode = "34590"
+            case "344.0"
+               TheCode = "3440"
+            case   "727.81"
+               TheCode = "72781"     
+            case "737.30" 
+               TheCode = "73730"
+            case "V43.64" 
+               TheCode = "V4364"
+         endselect              
+            
+         ++TheLevel  
+           gosub SQLLookup
+              
+      endif
+      
+      
+      ' Axis 4
+      $clear(axis4Code[])
 
-		' Stick all the Axis 4 Codes into one array
-		(void) $arrPush(axis4Code[], c.pa.aaiv	)
-		(void) $arrPush(axis4Code[], c.dxaxlvl2 )
-		(void) $arrPush(axis4Code[], c.axdxlvl3 )
-		(void) $arrPush(axis4Code[], c.dxaxlvl4 )
-		(void) $arrPush(axis4Code[], c.dxaxlvl5 )
-		(void) $arrPush(axis4Code[], c.dxaxlvl6 )
-		(void) $arrPush(axis4Code[], c.dxaxlvl7 )
-		(void) $arrPush(axis4Code[], c.dxaxlvl8 )
-		(void) $arrPush(axis4Code[], c.dxaxlvl9)
-		(void) $arrPush(axis4Code[], c.dxaxlvl0 )
-		
-		' Remove empty rows
-		(void) $sortu(axis4Code[])
-		(void) $arrCompress(axis4Code[])           
+      ' Stick all the Axis 4 Codes into one array
+      (void) $arrPush(axis4Code[], c.pa.aaiv   )
+      (void) $arrPush(axis4Code[], c.dxaxlvl2 )
+      (void) $arrPush(axis4Code[], c.axdxlvl3 )
+      (void) $arrPush(axis4Code[], c.dxaxlvl4 )
+      (void) $arrPush(axis4Code[], c.dxaxlvl5 )
+      (void) $arrPush(axis4Code[], c.dxaxlvl6 )
+      (void) $arrPush(axis4Code[], c.dxaxlvl7 )
+      (void) $arrPush(axis4Code[], c.dxaxlvl8 )
+      (void) $arrPush(axis4Code[], c.dxaxlvl9)
+      (void) $arrPush(axis4Code[], c.dxaxlvl0 )
+      
+      ' Remove empty rows
+      (void) $sortu(axis4Code[])
+      (void) $arrCompress(axis4Code[])           
 
 
             ' Did we have an conversion error
@@ -576,169 +576,169 @@ convertErr = "N"        ' No conversion Error
 '==========================================================================================
 ' Here we print the goods and the bads.  Comment out the second print to get just the bads.
 '==========================================================================================
-		' Format the data for outputting
-		PrintString = $format(id[clientstep],c.dxdate, c.dg.id, c.pa.aai, c.pa.adsa1, c.dxaslev, c.pa.aaii,
-			c.pa.adsa2, c.dxaxlev3, c.pa.aaiii, c.pa.adsa3,c.pa.adsa3a, convertErr, reportFmt) ', CountStr)
+      ' Format the data for outputting
+      PrintString = $format(id[clientstep],c.dxdate, c.dg.id, c.pa.aai, c.pa.adsa1, c.dxaslev, c.pa.aaii,
+         c.pa.adsa2, c.dxaxlev3, c.pa.aaiii, c.pa.adsa3,c.pa.adsa3a, convertErr, reportFmt) ', CountStr)
                 
-		(void) $print(1, PrintString)
+      (void) $print(1, PrintString)
 
             else
             
             
-		' Format the data for outputting
-		PrintString = $format(id[clientstep],c.dxdate, c.dg.id, c.pa.aai, c.pa.adsa1, c.dxaslev, c.pa.aaii,
-		c.pa.adsa2, c.dxaxlev3, c.pa.aaiii, c.pa.adsa3,c.pa.adsa3a, "GOOD", reportFmt) ', CountStr)
+      ' Format the data for outputting
+      PrintString = $format(id[clientstep],c.dxdate, c.dg.id, c.pa.aai, c.pa.adsa1, c.dxaslev, c.pa.aaii,
+      c.pa.adsa2, c.dxaxlev3, c.pa.aaiii, c.pa.adsa3,c.pa.adsa3a, "GOOD", reportFmt) ', CountStr)
                 
-		(void) $print(1, PrintString)
+      (void) $print(1, PrintString)
 
 
 '======================================================
 ' This section maps the read SQL data to the ICD10 dst.
 '======================================================
-		$dblock()
-		rc = $dbread( 2, id[clientstep], C.DX10.RH, C.DX10.DT)
+      $dblock()
+      rc = $dbread( 2, id[clientstep], C.DX10.RH, C.DX10.DT)
 
-     	' Clear the output DSTs first  
-		$clear(C.DX10.RH, C.DX10.DT, C.DX10.STAFF, C.DX10.REASON, C.DX10.ICD10.1, C.DX10.ICD10.2,
-		C.DX10.ICD10.3, C.DX10.ICD10.4, C.DX10.ICD10.5, C.DX10.ICD10.6, C.DX10.ICD10.7,
-		C.DX10.ICD10.8, C.DX10.ICD10.9, C.DX10.A4.SUPGRP, C.DX10.A4.SOCENV, C.DX10.A4.EDU,
-		C.DX10.A4.OCC, C.DX10.A4.HOUSNG, C.DX10.A4.ECO, C.DX10.A4.HEALTH, C.DX10.A4.LEGAL,
-		C.DX10.A4.PSYENV, C.DX10.A4.NONE, C.DX10.A5.GAF, C.DX10.CAREDT)
+        ' Clear the output DSTs first  
+      $clear(C.DX10.RH, C.DX10.DT, C.DX10.STAFF, C.DX10.REASON, C.DX10.ICD10.1, C.DX10.ICD10.2,
+      C.DX10.ICD10.3, C.DX10.ICD10.4, C.DX10.ICD10.5, C.DX10.ICD10.6, C.DX10.ICD10.7,
+      C.DX10.ICD10.8, C.DX10.ICD10.9, C.DX10.A4.SUPGRP, C.DX10.A4.SOCENV, C.DX10.A4.EDU,
+      C.DX10.A4.OCC, C.DX10.A4.HOUSNG, C.DX10.A4.ECO, C.DX10.A4.HEALTH, C.DX10.A4.LEGAL,
+      C.DX10.A4.PSYENV, C.DX10.A4.NONE, C.DX10.A5.GAF, C.DX10.CAREDT)
 
-		' Set the output DSTs
+      ' Set the output DSTs
 
-		$dbeffd = $today					' Add/Insert date is today
-		C.DX10.RH[effd]	= $today			' Force record header effective date to today
-		C.DX10.DT			= c.dxdate
-		C.DX10.STAFF		= c.dg.id
-		C.DX10.CAREDT		= c.cr.diag		' Set Sent to CARE Flag
-		C.DX10.A5.GAF		= c.pa.aav		' Set Axis 5 (GAF)
-		C.DX10.PIMARY.AX	= c.pridx			' Set Primary Axis of DX
+      $dbeffd = $today               ' Add/Insert date is today
+      C.DX10.RH[effd]   = $today         ' Force record header effective date to today
+      C.DX10.DT         = c.dxdate
+      C.DX10.STAFF      = c.dg.id
+      C.DX10.CAREDT      = c.cr.diag      ' Set Sent to CARE Flag
+      C.DX10.A5.GAF      = c.pa.aav      ' Set Axis 5 (GAF)
+      C.DX10.PIMARY.AX   = c.pridx         ' Set Primary Axis of DX
 
-		
-		if The9DX[1] DP
-			C.DX10.UNIQ.1  = TheUniq[1]
-			C.DX10.ICD9.1	= The9DX[1]
-			C.DX10.ICD10.1	= The10DX[1]	
-			C.DX10.LEGAX.1	= TheDSM[1]
-			C.DX10.DXCAT.1	= TheCAT[1]
-		endif
-		
-		if The9DX[2] DP
-			C.DX10.UNIQ.2  = TheUniq[2]
-			C.DX10.ICD9.2	= The9DX[2]
-			C.DX10.ICD10.2	= The10DX[2]	
-			C.DX10.LEGAX.2	= TheDSM[2]
-			C.DX10.DXCAT.2	= TheCAT[2]
-		endif
-		
-		if The9DX[3] DP
-			C.DX10.UNIQ.3  = TheUniq[3]
-			C.DX10.ICD9.3	= The9DX[3]
-			C.DX10.ICD10.3	= The10DX[3]	
-			C.DX10.LEGAX.3	= TheDSM[3]
-			C.DX10.DXCAT.3	= TheCAT[3]
-		endif
-		
-		if The9DX[4] DP
-			C.DX10.UNIQ.4  = TheUniq[4]
-			C.DX10.ICD9.4	= The9DX[4]
-			C.DX10.ICD10.4	= The10DX[4]	
-			C.DX10.LEGAX.4	= TheDSM[4]
-			C.DX10.DXCAT.4	= TheCAT[4]
-		endif
-		
-		if The9DX[5] DP
-			C.DX10.UNIQ.5  = TheUniq[5]
-			C.DX10.ICD9.5	= The9DX[5]
-			C.DX10.ICD10.5	= The10DX[5]	
-			C.DX10.LEGAX.5	= TheDSM[5]
-			C.DX10.DXCAT.5	= TheCAT[5]
-		endif
-		
-		if The9DX[6] DP
-			C.DX10.UNIQ.6  = TheUniq[6]
-			C.DX10.ICD9.6	= The9DX[6]
-			C.DX10.ICD10.6	= The10DX[6]	
-			C.DX10.LEGAX.6	= TheDSM[6]
-			C.DX10.DXCAT.6	= TheCAT[6]
-		endif
-		
-		if The9DX[7] DP
-			C.DX10.UNIQ.7  = TheUniq[7]
-			C.DX10.ICD9.7	= The9DX[7]
-			C.DX10.ICD10.7	= The10DX[7]	
-			C.DX10.LEGAX.7	= TheDSM[7]
-			C.DX10.DXCAT.7	= TheCAT[7]
-		endif
-		
-		if The9DX[8] DP
-			C.DX10.UNIQ.8  = TheUniq[8]
-			C.DX10.ICD9.8	= The9DX[8]
-			C.DX10.ICD10.8	= The10DX[8]	
-			C.DX10.LEGAX.8	= TheDSM[8]
-			C.DX10.DXCAT.8	= TheCAT[8]
-		endif
-		
-		if The9DX[9] DP
-			C.DX10.UNIQ.9  = TheUniq[9]
-			C.DX10.ICD9.9	= The9DX[9]
-			C.DX10.ICD10.9	= The10DX[9]	
-			C.DX10.LEGAX.9	= TheDSM[9]
-			C.DX10.DXCAT.9	= TheCAT[9]
-		endif
-			
-		' Set Axis 4 Codes
-		if $find("A", axis4Code[],,"F") > 0 then   C.DX10.A4.SUPGRP  = "A"   else    $clear(C.DX10.A4.SUPGRP ) endif
-		if $find("B", axis4Code[],,"F") > 0 then   C.DX10.A4.SOCENV  = "B"   else    $clear(C.DX10.A4.SOCENV ) endif
-		if $find("C", axis4Code[],,"F") > 0 then   C.DX10.A4.EDU     = "C"   else    $clear(C.DX10.A4.EDU    ) endif
-		if $find("D", axis4Code[],,"F") > 0 then   C.DX10.A4.OCC     = "D"   else    $clear(C.DX10.A4.OCC    ) endif
-		if $find("E", axis4Code[],,"F") > 0 then   C.DX10.A4.HOUSNG = "E"   else    $clear(C.DX10.A4.HOUSNG) endif
-		if $find("F", axis4Code[],,"F") > 0 then   C.DX10.A4.ECO     = "F"   else    $clear(C.DX10.A4.ECO    ) endif
-		if $find("G", axis4Code[],,"F") > 0 then   C.DX10.A4.HEALTH = "G"   else    $clear(C.DX10.A4.HEALTH) endif
-		if $find("H", axis4Code[],,"F") > 0 then   C.DX10.A4.LEGAL   = "H"   else    $clear(C.DX10.A4.LEGAL  ) endif
-		if $find("I", axis4Code[],,"F") > 0 then   C.DX10.A4.PSYENV  = "I"   else    $clear(C.DX10.A4.PSYENV ) endif
-		if $find("J", axis4Code[],,"F") > 0 then   C.DX10.A4.NONE    = "J"   else    $clear(C.DX10.A4.NONE   ) endif
+      
+      if The9DX[1] DP
+         C.DX10.UNIQ.1  = TheUniq[1]
+         C.DX10.ICD9.1   = The9DX[1]
+         C.DX10.ICD10.1   = The10DX[1]   
+         C.DX10.LEGAX.1   = TheDSM[1]
+         C.DX10.DXCAT.1   = TheCAT[1]
+      endif
+      
+      if The9DX[2] DP
+         C.DX10.UNIQ.2  = TheUniq[2]
+         C.DX10.ICD9.2   = The9DX[2]
+         C.DX10.ICD10.2   = The10DX[2]   
+         C.DX10.LEGAX.2   = TheDSM[2]
+         C.DX10.DXCAT.2   = TheCAT[2]
+      endif
+      
+      if The9DX[3] DP
+         C.DX10.UNIQ.3  = TheUniq[3]
+         C.DX10.ICD9.3   = The9DX[3]
+         C.DX10.ICD10.3   = The10DX[3]   
+         C.DX10.LEGAX.3   = TheDSM[3]
+         C.DX10.DXCAT.3   = TheCAT[3]
+      endif
+      
+      if The9DX[4] DP
+         C.DX10.UNIQ.4  = TheUniq[4]
+         C.DX10.ICD9.4   = The9DX[4]
+         C.DX10.ICD10.4   = The10DX[4]   
+         C.DX10.LEGAX.4   = TheDSM[4]
+         C.DX10.DXCAT.4   = TheCAT[4]
+      endif
+      
+      if The9DX[5] DP
+         C.DX10.UNIQ.5  = TheUniq[5]
+         C.DX10.ICD9.5   = The9DX[5]
+         C.DX10.ICD10.5   = The10DX[5]   
+         C.DX10.LEGAX.5   = TheDSM[5]
+         C.DX10.DXCAT.5   = TheCAT[5]
+      endif
+      
+      if The9DX[6] DP
+         C.DX10.UNIQ.6  = TheUniq[6]
+         C.DX10.ICD9.6   = The9DX[6]
+         C.DX10.ICD10.6   = The10DX[6]   
+         C.DX10.LEGAX.6   = TheDSM[6]
+         C.DX10.DXCAT.6   = TheCAT[6]
+      endif
+      
+      if The9DX[7] DP
+         C.DX10.UNIQ.7  = TheUniq[7]
+         C.DX10.ICD9.7   = The9DX[7]
+         C.DX10.ICD10.7   = The10DX[7]   
+         C.DX10.LEGAX.7   = TheDSM[7]
+         C.DX10.DXCAT.7   = TheCAT[7]
+      endif
+      
+      if The9DX[8] DP
+         C.DX10.UNIQ.8  = TheUniq[8]
+         C.DX10.ICD9.8   = The9DX[8]
+         C.DX10.ICD10.8   = The10DX[8]   
+         C.DX10.LEGAX.8   = TheDSM[8]
+         C.DX10.DXCAT.8   = TheCAT[8]
+      endif
+      
+      if The9DX[9] DP
+         C.DX10.UNIQ.9  = TheUniq[9]
+         C.DX10.ICD9.9   = The9DX[9]
+         C.DX10.ICD10.9   = The10DX[9]   
+         C.DX10.LEGAX.9   = TheDSM[9]
+         C.DX10.DXCAT.9   = TheCAT[9]
+      endif
+         
+      ' Set Axis 4 Codes
+      if $find("A", axis4Code[],,"F") > 0 then   C.DX10.A4.SUPGRP  = "A"   else    $clear(C.DX10.A4.SUPGRP ) endif
+      if $find("B", axis4Code[],,"F") > 0 then   C.DX10.A4.SOCENV  = "B"   else    $clear(C.DX10.A4.SOCENV ) endif
+      if $find("C", axis4Code[],,"F") > 0 then   C.DX10.A4.EDU     = "C"   else    $clear(C.DX10.A4.EDU    ) endif
+      if $find("D", axis4Code[],,"F") > 0 then   C.DX10.A4.OCC     = "D"   else    $clear(C.DX10.A4.OCC    ) endif
+      if $find("E", axis4Code[],,"F") > 0 then   C.DX10.A4.HOUSNG = "E"   else    $clear(C.DX10.A4.HOUSNG) endif
+      if $find("F", axis4Code[],,"F") > 0 then   C.DX10.A4.ECO     = "F"   else    $clear(C.DX10.A4.ECO    ) endif
+      if $find("G", axis4Code[],,"F") > 0 then   C.DX10.A4.HEALTH = "G"   else    $clear(C.DX10.A4.HEALTH) endif
+      if $find("H", axis4Code[],,"F") > 0 then   C.DX10.A4.LEGAL   = "H"   else    $clear(C.DX10.A4.LEGAL  ) endif
+      if $find("I", axis4Code[],,"F") > 0 then   C.DX10.A4.PSYENV  = "I"   else    $clear(C.DX10.A4.PSYENV ) endif
+      if $find("J", axis4Code[],,"F") > 0 then   C.DX10.A4.NONE    = "J"   else    $clear(C.DX10.A4.NONE   ) endif
 
 
 
 '=================================================
 ' This section writes the data to the ICD10 record
 '=================================================
-		$dblock()
-		rc = $dbread( 2, id[clientstep], C.DX10.RH)
-		' Insert the ICD-10 Diagnosis
-		rc = $dbadddst( 2, id[clientstep],
-		C.DX10.RH, C.DX10.DT, C.DX10.STAFF, C.DX10.REASON, C.DX10.A5.GAF, C.DX10.CAREDT, C.DX10.PIMARY.AX,
-		
-		c.dx10.uniq.1, c.dx10.icd9.1, c.dx10.icd10.1, c.dx10.legax.1, c.dx10.dxcat.1,
-		c.dx10.uniq.2, c.dx10.icd9.2, c.dx10.icd10.2, c.dx10.legax.2, c.dx10.dxcat.2,
-		c.dx10.uniq.3, c.dx10.icd9.3, c.dx10.icd10.3, c.dx10.legax.3, c.dx10.dxcat.3,
-		c.dx10.uniq.4, c.dx10.icd9.4, c.dx10.icd10.4, c.dx10.legax.4, c.dx10.dxcat.4,
-		c.dx10.uniq.5, c.dx10.icd9.5, c.dx10.icd10.5, c.dx10.legax.5, c.dx10.dxcat.5,
-		c.dx10.uniq.6, c.dx10.icd9.6, c.dx10.icd10.6, c.dx10.legax.6, c.dx10.dxcat.6,
-		c.dx10.uniq.7, c.dx10.icd9.7, c.dx10.icd10.7, c.dx10.legax.7, c.dx10.dxcat.7,
-		c.dx10.uniq.8, c.dx10.icd9.8, c.dx10.icd10.8, c.dx10.legax.8, c.dx10.dxcat.8,
-		c.dx10.uniq.9, c.dx10.icd9.9, c.dx10.icd10.9, c.dx10.legax.9, c.dx10.dxcat.9,
-		
-		C.DX10.A4.SUPGRP, C.DX10.A4.SOCENV, C.DX10.A4.EDU, C.DX10.A4.OCC, C.DX10.A4.HOUSNG, C.DX10.A4.ECO,
-		C.DX10.A4.HEALTH, C.DX10.A4.LEGAL, C.DX10.A4.PSYENV, C.DX10.A4.NONE)
-		
+      $dblock()
+      rc = $dbread( 2, id[clientstep], C.DX10.RH)
+      ' Insert the ICD-10 Diagnosis
+      rc = $dbadddst( 2, id[clientstep],
+      C.DX10.RH, C.DX10.DT, C.DX10.STAFF, C.DX10.REASON, C.DX10.A5.GAF, C.DX10.CAREDT, C.DX10.PIMARY.AX,
+      
+      c.dx10.uniq.1, c.dx10.icd9.1, c.dx10.icd10.1, c.dx10.legax.1, c.dx10.dxcat.1,
+      c.dx10.uniq.2, c.dx10.icd9.2, c.dx10.icd10.2, c.dx10.legax.2, c.dx10.dxcat.2,
+      c.dx10.uniq.3, c.dx10.icd9.3, c.dx10.icd10.3, c.dx10.legax.3, c.dx10.dxcat.3,
+      c.dx10.uniq.4, c.dx10.icd9.4, c.dx10.icd10.4, c.dx10.legax.4, c.dx10.dxcat.4,
+      c.dx10.uniq.5, c.dx10.icd9.5, c.dx10.icd10.5, c.dx10.legax.5, c.dx10.dxcat.5,
+      c.dx10.uniq.6, c.dx10.icd9.6, c.dx10.icd10.6, c.dx10.legax.6, c.dx10.dxcat.6,
+      c.dx10.uniq.7, c.dx10.icd9.7, c.dx10.icd10.7, c.dx10.legax.7, c.dx10.dxcat.7,
+      c.dx10.uniq.8, c.dx10.icd9.8, c.dx10.icd10.8, c.dx10.legax.8, c.dx10.dxcat.8,
+      c.dx10.uniq.9, c.dx10.icd9.9, c.dx10.icd10.9, c.dx10.legax.9, c.dx10.dxcat.9,
+      
+      C.DX10.A4.SUPGRP, C.DX10.A4.SOCENV, C.DX10.A4.EDU, C.DX10.A4.OCC, C.DX10.A4.HOUSNG, C.DX10.A4.ECO,
+      C.DX10.A4.HEALTH, C.DX10.A4.LEGAL, C.DX10.A4.PSYENV, C.DX10.A4.NONE)
+      
                 
-			if (rc <> 0) then
-				' Report the conversion error out.
-				convertErr = $format(rc, "Insert (99)")
-				errCount++
+         if (rc <> 0) then
+            ' Report the conversion error out.
+            convertErr = $format(rc, "Insert (99)")
+            errCount++
 
-				'Format the data for outputting
-				PrintString = $format(id[clientstep], c.dxdate, c.dg.id, c.pa.aai, c.pa.adsa1, c.dxaslev, c.pa.aaii,
-						c.pa.adsa2, c.dxaxlev3, c.pa.aaiii, c.pa.adsa3,c.pa.adsa3a, convertErr, reportFmt, CountStr)
-				(void) $print(1, PrintString)
-			endif   'End of Error inserting ICD-10 diagnosis
+            'Format the data for outputting
+            PrintString = $format(id[clientstep], c.dxdate, c.dg.id, c.pa.aai, c.pa.adsa1, c.dxaslev, c.pa.aaii,
+                  c.pa.adsa2, c.dxaxlev3, c.pa.aaiii, c.pa.adsa3,c.pa.adsa3a, convertErr, reportFmt, CountStr)
+            (void) $print(1, PrintString)
+         endif   'End of Error inserting ICD-10 diagnosis
                 
-		' Unlock the Client Register
-		$dbunlock()
-	endif   ' End of have a Conversion Error
+      ' Unlock the Client Register
+      $dbunlock()
+   endif   ' End of have a Conversion Error
 endif   ' End of Client Filter for Conversion
 
 
@@ -770,8 +770,8 @@ ExitNow:
 SQLLookup:
 
 TheQuery = "SELECT UniqID, [ICD-9_code], [ICD-9_Description], [ICD-10_Code], [ICD-10_Description],[DSM-4_Axis], DX_CAT, EffDt, EndDt " +
-	  "FROM [t_ICD-10_ICD-9_with_GEM_AXIS] " +
-	  "WHERE [ICD-9_Code] = '" +  TheCode + "'"
+     "FROM [t_ICD-10_ICD-9_with_GEM_AXIS] " +
+     "WHERE [ICD-9_Code] = '" +  TheCode + "'"
 
    $clear(TheRow[],TheColumn[],TheCount)
    rc = libf:q(TheQuery, TheRow[])
@@ -782,17 +782,17 @@ CountStr = $castx(TheCount)
 If TheCount = 1
 
   ' 1 - UniqID, 2 - ICD-9_Code, 3 - ICD-9Description, 4 - ICD-10_Code, 5 - ICD-10_Description, 6 - DSM-4_Axis, 7 - DX-CAT, 8 - EffDt, 9 - EndDt"
-	$parsem(TheRow[], 1, "|", TheColumn[])
+   $parsem(TheRow[], 1, "|", TheColumn[])
   
-	TheUniq[TheLevel] = TheColumn[1]
-	The9DX[TheLevel] = TheColumn[2]
-	The9Des[TheLevel] = TheColumn[3]
-	The10DX[TheLevel] = TheColumn[4]
-	The10Des[TheLevel] = TheColumn[5]
-	TheDSM[TheLevel] = TheColumn[6]
-	TheCAT[TheLevel] = TheColumn[7]
-	TheEffDt[TheLevel] = TheColumn[8]
-	TheEndDt[TheLevel] = TheColumn[9]
+   TheUniq[TheLevel] = TheColumn[1]
+   The9DX[TheLevel] = TheColumn[2]
+   The9Des[TheLevel] = TheColumn[3]
+   The10DX[TheLevel] = TheColumn[4]
+   The10Des[TheLevel] = TheColumn[5]
+   TheDSM[TheLevel] = TheColumn[6]
+   TheCAT[TheLevel] = TheColumn[7]
+   TheEffDt[TheLevel] = TheColumn[8]
+   TheEndDt[TheLevel] = TheColumn[9]
 
 else
    convertErr = TheError ' Set the error Flag
