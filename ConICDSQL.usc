@@ -431,7 +431,7 @@ convertErr = "N"        ' No conversion Error
          and c.pa.aai  != "7999") then
 
          TheError = "1-1"
-         TheCode = c.pa.aai
+         TheCode = $seg(c.pa.aai, 1, 6)
 
          select c.pa.aai
             case "V4000"
@@ -449,7 +449,7 @@ convertErr = "N"        ' No conversion Error
          and c.pa.adsa1 != "7999") then
 
          TheError = "1-2"
-         TheCode = c.pa.adsa1
+         TheCode = $seg(c.pa.adsa1, 1, 6)
 
          select c.pa.adsa1
             case "V4000"
@@ -467,7 +467,7 @@ convertErr = "N"        ' No conversion Error
          and c.dxaxlev3 != "7999") then
 
          TheError = "1-3"
-         TheCode = c.dxaxlev3
+         TheCode = $seg(c.dxaxlev3, 1, 6)
 
          select c.dxaxlev3
             case "V4000"
@@ -486,7 +486,7 @@ convertErr = "N"        ' No conversion Error
          and c.pa.aaii != "7999") then
 
          TheError = "2-1"
-         TheCode = c.pa.aaii
+         TheCode = $seg(c.pa.aaii, 1, 6)
 
          select c.pa.aaii
             case "V4000"
@@ -504,7 +504,7 @@ convertErr = "N"        ' No conversion Error
          and c.pa.adsa2 != "7999") then
 
          TheError = "2-2"
-         TheCode = c.pa.adsa2
+         TheCode = $seg(c.pa.adsa2, 1, 6)
 
          select  c.pa.adsa2
             case "V4000"
@@ -522,7 +522,7 @@ convertErr = "N"        ' No conversion Error
          and c.dxaxlev3 != "7999") then
 
          TheError = "2-3"
-         TheCode = c.dxaxlev3
+         TheCode = $seg(c.dxaxlev3, 1, 6)
 
          select  c.dxaxlev3
             case "V4000"
@@ -542,7 +542,7 @@ convertErr = "N"        ' No conversion Error
          and c.pa.aaiii != "7999") then
 
          TheError = "3-1"
-         TheCode = c.pa.aaiii
+         TheCode = $seg(c.pa.aaiii, 1, 6)
 
          select c.pa.aaiii
             case "054.10"
@@ -580,7 +580,7 @@ convertErr = "N"        ' No conversion Error
          and c.pa.adsa3 != "7999") then
 
          TheError = "3-2"
-         TheCode = c.pa.adsa3
+         TheCode = $seg(c.pa.adsa3, 1, 6)
 
          select c.pa.adsa3
             case "054.10"
@@ -618,7 +618,7 @@ convertErr = "N"        ' No conversion Error
          and c.pa.adsa3a != "7999") then
 
          TheError = "3-3"
-         TheCode = c.pa.adsa3a
+         TheCode = $seg(c.pa.adsa3a, 1, 6)
 
          select c.pa.adsa3a
             case "054.10"
