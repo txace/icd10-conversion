@@ -33,6 +33,7 @@ start ConICDSQL(parmfile, option, retcode)
 ' Prompts
    reportOnly        is  x       ' Flag for report only (Y/N)
    done              is  x       ' Flag for Ready to Run
+   tracepath         is  x       ' Flag and path to trace execution
 
 
 ' Client DSTs
@@ -199,6 +200,8 @@ start ConICDSQL(parmfile, option, retcode)
    dsn                is x
    libf               is b
 
+   list_sql           is x
+   save_sql_list      is x
    RowLoop            is i
    TheError           is x
    TheCode            is x
@@ -221,6 +224,7 @@ start ConICDSQL(parmfile, option, retcode)
    errCount    = 0            ' Number of errors
    TheCount    = 0
    listid[1]   = "T031"       ' The Client Saved List to Loop Through
+   'list_sql
 
    'Set the initial DSN values used to connect to the SQL Server
    'o_user = "user"            'SQL Server User
@@ -262,15 +266,37 @@ start ConICDSQL(parmfile, option, retcode)
    'get the option string overrides
    getoption(option)
 
-   ' Get T365 Save List
-   rc = $getlist(id[], 2, listid[1])
-   maxClients = $maxarray(id[])
-
+   if tracepath dp then
+      $trace("path,on", tracepath)
+   endif
 
    rc = $loadlib(libf,"LIB-freetds")
 
    dsn = o_user + ":" + o_pass + ":" + o_host + ":" + o_db
    libf:setDSN(dsn)
+
+   ' create the list from sql? 
+   if list_sql dp then
+      rc = libf:q(list_sql, id[])
+      rc = 0
+      do while rc++ < $maxarray(id[])
+         id[rc] = $replace("|", "", id[rc])
+      enddo
+      if save_sql_list = "Y" and listid[1] dp then
+         rc = $putlist(id[], 2, listid[1], listid[1], "R")
+      endif
+   endif
+
+   ' Get Save List
+   if id[] !dp and listid[1] dp then
+      rc = $getlist(id[], 2, listid[1])
+   endif
+
+   maxClients = $maxarray(id[])
+   if maxClients < 1 then
+      $errmsg1 = "No Clients Found"
+      return
+   endif
 
    'map the icd 9 dsts
    $setvarname(c.dx.rh     , MAP_c.dx.rh     )  
@@ -304,6 +330,7 @@ start ConICDSQL(parmfile, option, retcode)
 '=================================================
 ' Some Screen / Prompt Stuff
 '=================================================
+if $operioallow = "Y" then
    $openwin(1, 1, 24, 01, 80)
    $disp("ICD-9 to ICD-10 Diagnosis Conversion",    2, 22,,"HE")
    $disp("Are you ready to complete the process?", 23,  2,,"H")
@@ -316,6 +343,7 @@ promptAgain:
    elseif (done !DP or $acptkey = "NONE") then
        goto promptAgain
    endif
+endif
 
 '=================================================
 ' Set-up report / output file
@@ -344,15 +372,13 @@ promptAgain:
 '=================================================
 ' Convert the Client Diagnosis
 '=================================================
+if $operioallow = "Y" then
     $disp("Converting...",  12, 17, 20, "H")
     $disp("Client ID:",     14, 17,,"H")
     $disp("Converted:",     16, 17,,"H")
     $disp(   "Failed:",     16, 37,,"H")
     $disp(" SQL Data:",     18,17,,"H")
-
-
-
-
+endif
 
 '=================================================
 ' Loop through all the clients
@@ -382,8 +408,10 @@ convertErr = "N"        ' No conversion Error
 
 
    ' Show the Client being processed
-   $disp( $format(clientstep, maxClients,"ZZZ,ZZ9 of ZZZ,ZZ9"), 12, 31, 18,)
-   $disp(id[clientstep], 14, 28, 10,)
+   if $operioallow = "Y" then
+      $disp( $format(clientstep, maxClients,"ZZZ,ZZ9 of ZZZ,ZZ9"), 12, 31, 18,)
+      $disp(id[clientstep], 14, 28, 10,)
+   endif
 
 
    ' Filter the clients -  Is there an ICD 9 Date without a ICD 10 date?
@@ -665,7 +693,6 @@ convertErr = "N"        ' No conversion Error
          '======================================================
          $dblock()
          rc = $dbread( 2, id[clientstep], C.DX10.RH, C.DX10.DT)
-      endif
 
       ' Clear the output DSTs first
       $clear(C.DX10.RH, C.DX10.DT, C.DX10.STAFF, C.DX10.REASON, C.DX10.ICD10.1, C.DX10.ICD10.2,
@@ -806,9 +833,11 @@ convertErr = "N"        ' No conversion Error
 endif   ' End of Client Filter for Conversion
 
    ' Show the number of Read & converted Clients
-   $disp($format(NbrClients, "ZZZ,ZZ9"), 16, 28, 7)
-   $disp($format(errCount,   "ZZZ,ZZ9"), 16, 45, 7)
-   $disp($format($castn(TheColumn[1]),"ZZZZZ9"), 18, 28,30,)
+   if $operioallow = "Y" then
+      $disp($format(NbrClients, "ZZZ,ZZ9"), 16, 28, 7)
+      $disp($format(errCount,   "ZZZ,ZZ9"), 16, 45, 7)
+      $disp($format($castn(TheColumn[1]),"ZZZZZ9"), 18, 28,30,)
+   endif
 
 enddo
 ' end of Client Loop
@@ -819,10 +848,13 @@ enddo
 (void) $closereport(1)
 
 ExitNow:
-   $disp("Press Enter to Exit ", 20, 17,,"H")
-   $acpt(done, , , 1,)
+   if $operioallow = "Y" then
+      $disp("Press Enter to Exit ", 20, 17,,"H")
+      $acpt(done, , , 1,)
 
-   $closewin(1)   ' Close the prompts window
+      $closewin(1)   ' Close the prompts window
+   endif
+   return
 
 '============================================================================
 ' This is a subroutine called by the various conversion sect'ons above.
@@ -830,7 +862,8 @@ ExitNow:
 SQLLookup:
    TheQuery = "SELECT UniqID, [ICD-9_code], [ICD-9_Description], [ICD-10_Code], [ICD-10_Description],[DSM-4_Axis], DX_CAT, EffDt, EndDt " +
         "FROM [t_ICD-10_ICD-9_with_GEM_AXIS] " +
-        "WHERE [ICD-9_Code] = '" +  TheCode + "'"
+        "WHERE [ICD-9_Code] = '" +  TheCode + "' or " + 
+        "[ICD-9_Code_DotNotation] = '" + TheCode + "'"
 
       $clear(TheRow[],TheColumn[],TheCount)
       rc = libf:q(TheQuery, TheRow[])
