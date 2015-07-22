@@ -15,145 +15,145 @@ C.DX10.RH            is h      'DX10 Record Header
 C.DX10.STAFF         is x      'DX10 Diagnosing Staff
 C.DX10.ENTSTAFF      is x      'DX10 Entry Staff
 C.DX10.DT            is d      'DX10 Date
-C.DX10.TIME         is t      'DX10 Time
+C.DX10.TIME          is t      'DX10 Time
 C.DX10.ENTDT         is d      'DX10 Entry Date
 C.DX10.ENTTM         is t      'DX10 Entry Time
-C.DX10.CAREDT         is d      'DX10 CARE Date
-C.DX10.REASON         is x      'DX10 Reason for Diagnosis
-C.DX10.EXPIRE         is d      'DX10 Expire Date
-C.DX10.PIMARY.AX      is x      'DX10 Axis of Primary Diagnosis
-C.DX10.ICD10.1         is x      'DX10 ICD10 Code Lev 1
-C.DX10.ICD9.1         is x      'DX10 ICD9 Code Lev 1
-C.DX10.LEGAX.1         is x      'DX10 Legacy Axis Lev 1
-C.DX10.DXCAT.1         is x      'DX10 Diagnosis Category Lev 1
+C.DX10.CAREDT        is d      'DX10 CARE Date
+C.DX10.REASON        is x      'DX10 Reason for Diagnosis
+C.DX10.EXPIRE        is d      'DX10 Expire Date
+C.DX10.PIMARY.AX     is x      'DX10 Axis of Primary Diagnosis
+C.DX10.ICD10.1       is x      'DX10 ICD10 Code Lev 1
+C.DX10.ICD9.1        is x      'DX10 ICD9 Code Lev 1
+C.DX10.LEGAX.1       is x      'DX10 Legacy Axis Lev 1
+C.DX10.DXCAT.1       is x      'DX10 Diagnosis Category Lev 1
 C.DX10.DXRANK.1      is x      'DX10 Diagnosis Rank Lev 1
-C.DX10.UNIQ.1         is x      'DX10 Diagnosis Unique Lev 1
-C.DX10.ICD10.2         is x      'DX10 ICD10 Code Lev 2
-C.DX10.ICD9.2         is x      'DX10 ICD9 Code Lev 2
-C.DX10.LEGAX.2         is x      'DX10 Legacy Axis Lev 2
-C.DX10.DXCAT.2         is x      'DX10 Diagnosis Category Lev 2
+C.DX10.UNIQ.1        is x      'DX10 Diagnosis Unique Lev 1
+C.DX10.ICD10.2       is x      'DX10 ICD10 Code Lev 2
+C.DX10.ICD9.2        is x      'DX10 ICD9 Code Lev 2
+C.DX10.LEGAX.2       is x      'DX10 Legacy Axis Lev 2
+C.DX10.DXCAT.2       is x      'DX10 Diagnosis Category Lev 2
 C.DX10.DXRANK.2      is x    'DX10 Diagnosis Rank Lev 2
-C.DX10.UNIQ.2         is x      'DX10 Diagnosis Unique Lev 2
-C.DX10.ICD10.3         is x      'DX10 ICD10 Code Lev 3
-C.DX10.ICD9.3         is x      'DX10 ICD9 Code Lev 3
-C.DX10.LEGAX.3         is x      'DX10 Legacy Axis Lev 3
-C.DX10.DXCAT.3         is x      'DX10 Diagnosis Category Lev 3
+C.DX10.UNIQ.2        is x      'DX10 Diagnosis Unique Lev 2
+C.DX10.ICD10.3       is x      'DX10 ICD10 Code Lev 3
+C.DX10.ICD9.3        is x      'DX10 ICD9 Code Lev 3
+C.DX10.LEGAX.3       is x      'DX10 Legacy Axis Lev 3
+C.DX10.DXCAT.3       is x      'DX10 Diagnosis Category Lev 3
 C.DX10.DXRANK.3      is x      'DX10 Diagnosis Rank Lev 3
-C.DX10.UNIQ.3         is x      'DX10 Diagnosis Unique Lev 3
-C.DX10.ICD10.4         is x      'DX10 ICD10 Code Lev 4
-C.DX10.ICD9.4         is x      'DX10 ICD9 Code Lev 4
-C.DX10.LEGAX.4         is x      'DX10 Legacy Axis Lev 4
-C.DX10.DXCAT.4         is x      'DX10 Diagnosis Category Lev 4
+C.DX10.UNIQ.3        is x      'DX10 Diagnosis Unique Lev 3
+C.DX10.ICD10.4       is x      'DX10 ICD10 Code Lev 4
+C.DX10.ICD9.4        is x      'DX10 ICD9 Code Lev 4
+C.DX10.LEGAX.4       is x      'DX10 Legacy Axis Lev 4
+C.DX10.DXCAT.4       is x      'DX10 Diagnosis Category Lev 4
 C.DX10.DXRANK.4      is x      'DX10 Diagnosis Rank Lev 4
-C.DX10.UNIQ.4         is x      'DX10 Diagnosis Unique Lev 4
-C.DX10.ICD10.5         is x      'DX10 ICD10 Code Lev 5
-C.DX10.ICD9.5         is x      'DX10 ICD9 Code Lev 5
-C.DX10.LEGAX.5         is x      'DX10 Legacy Axis Lev 5
-C.DX10.DXCAT.5         is x      'DX10 Diagnosis Category Lev 5
+C.DX10.UNIQ.4        is x      'DX10 Diagnosis Unique Lev 4
+C.DX10.ICD10.5       is x      'DX10 ICD10 Code Lev 5
+C.DX10.ICD9.5        is x      'DX10 ICD9 Code Lev 5
+C.DX10.LEGAX.5       is x      'DX10 Legacy Axis Lev 5
+C.DX10.DXCAT.5       is x      'DX10 Diagnosis Category Lev 5
 C.DX10.DXRANK.5      is x      'DX10 Diagnosis Rank Lev 5
-C.DX10.UNIQ.5         is x      'DX10 Diagnosis Unique Lev 5
-C.DX10.ICD10.6         is x      'DX10 ICD10 Code Lev 6
-C.DX10.ICD9.6         is x      'DX10 ICD9 Code Lev 6
-C.DX10.LEGAX.6         is x      'DX10 Legacy Axis Lev 6
-C.DX10.DXCAT.6         is x      'DX10 Diagnosis Category Lev 6
+C.DX10.UNIQ.5        is x      'DX10 Diagnosis Unique Lev 5
+C.DX10.ICD10.6       is x      'DX10 ICD10 Code Lev 6
+C.DX10.ICD9.6        is x      'DX10 ICD9 Code Lev 6
+C.DX10.LEGAX.6       is x      'DX10 Legacy Axis Lev 6
+C.DX10.DXCAT.6       is x      'DX10 Diagnosis Category Lev 6
 C.DX10.DXRANK.6      is x      'DX10 Diagnosis Rank Lev 6
-C.DX10.UNIQ.6         is x      'DX10 Diagnosis Unique Lev 6
-C.DX10.ICD10.7         is x      'DX10 ICD10 Code Lev 7
-C.DX10.ICD9.7         is x      'DX10 ICD9 Code Lev 7
-C.DX10.LEGAX.7         is x      'DX10 Legacy Axis Lev 7
-C.DX10.DXCAT.7         is x      'DX10 Diagnosis Category Lev 7
+C.DX10.UNIQ.6        is x      'DX10 Diagnosis Unique Lev 6
+C.DX10.ICD10.7       is x      'DX10 ICD10 Code Lev 7
+C.DX10.ICD9.7        is x      'DX10 ICD9 Code Lev 7
+C.DX10.LEGAX.7       is x      'DX10 Legacy Axis Lev 7
+C.DX10.DXCAT.7       is x      'DX10 Diagnosis Category Lev 7
 C.DX10.DXRANK.7      is x      'DX10 Diagnosis Rank Lev 7
-C.DX10.UNIQ.7         is x      'DX10 Diagnosis Unique Lev 7
-C.DX10.ICD10.8         is x      'DX10 ICD10 Code Lev 8
-C.DX10.ICD9.8         is x      'DX10 ICD9 Code Lev 8
-C.DX10.LEGAX.8         is x      'DX10 Legacy Axis Lev 8
-C.DX10.DXCAT.8         is x      'DX10 Diagnosis Category Lev 8
+C.DX10.UNIQ.7        is x      'DX10 Diagnosis Unique Lev 7
+C.DX10.ICD10.8       is x      'DX10 ICD10 Code Lev 8
+C.DX10.ICD9.8        is x      'DX10 ICD9 Code Lev 8
+C.DX10.LEGAX.8       is x      'DX10 Legacy Axis Lev 8
+C.DX10.DXCAT.8       is x      'DX10 Diagnosis Category Lev 8
 C.DX10.DXRANK.8      is x      'DX10 Diagnosis Rank Lev 8
-C.DX10.UNIQ.8         is x      'DX10 Diagnosis Unique Lev 8
-C.DX10.ICD10.9         is x      'DX10 ICD10 Code Lev 9
-C.DX10.ICD9.9         is x      'DX10 ICD9 Code Lev 9
-C.DX10.LEGAX.9         is x      'DX10 Legacy Axis Lev 9
-C.DX10.DXCAT.9         is x      'DX10 Diagnosis Category Lev 9
+C.DX10.UNIQ.8        is x      'DX10 Diagnosis Unique Lev 8
+C.DX10.ICD10.9       is x      'DX10 ICD10 Code Lev 9
+C.DX10.ICD9.9        is x      'DX10 ICD9 Code Lev 9
+C.DX10.LEGAX.9       is x      'DX10 Legacy Axis Lev 9
+C.DX10.DXCAT.9       is x      'DX10 Diagnosis Category Lev 9
 C.DX10.DXRANK.9      is x      'DX10 Diagnosis Rank Lev 9
-C.DX10.UNIQ.9         is x      'DX10 Diagnosis Unique Lev 9
+C.DX10.UNIQ.9        is x      'DX10 Diagnosis Unique Lev 9
 C.DX10.ICD10.10      is x      'DX10 ICD10 Code Lev 10
-C.DX10.ICD9.10         is x      'DX10 ICD9 Code Lev 10
+C.DX10.ICD9.10       is x      'DX10 ICD9 Code Lev 10
 C.DX10.LEGAX.10      is x      'DX10 Legacy Axis Lev 10
 C.DX10.DXCAT.10      is x      'DX10 Diagnosis Category Lev 10
-C.DX10.DXRANK.10      is x      'DX10 Diagnosis Rank Lev 10
-C.DX10.UNIQ.10         is x      'DX10 Diagnosis Unique Lev 10
+C.DX10.DXRANK.10     is x      'DX10 Diagnosis Rank Lev 10
+C.DX10.UNIQ.10       is x      'DX10 Diagnosis Unique Lev 10
 C.DX10.ICD10.11      is x      'DX10 ICD10 Code Lev 11
-C.DX10.ICD9.11         is x      'DX10 ICD9 Code Lev 11
+C.DX10.ICD9.11       is x      'DX10 ICD9 Code Lev 11
 C.DX10.LEGAX.11      is x      'DX10 Legacy Axis Lev 11
 C.DX10.DXCAT.11      is x      'DX10 Diagnosis Category Lev 11
-C.DX10.DXRANK.11      is x      'DX10 Diagnosis Rank Lev 11
-C.DX10.UNIQ.11         is x      'DX10 Diagnosis Unique Lev 11
+C.DX10.DXRANK.11     is x      'DX10 Diagnosis Rank Lev 11
+C.DX10.UNIQ.11       is x      'DX10 Diagnosis Unique Lev 11
 C.DX10.ICD10.12      is x      'DX10 ICD10 Code Lev 12
-C.DX10.ICD9.12         is x      'DX10 ICD9 Code Lev 12
+C.DX10.ICD9.12       is x      'DX10 ICD9 Code Lev 12
 C.DX10.LEGAX.12      is x      'DX10 Legacy Axis Lev 12
 C.DX10.DXCAT.12      is x      'DX10 Diagnosis Category Lev 12
-C.DX10.DXRANK.12      is x      'DX10 Diagnosis Rank Lev 12
-C.DX10.UNIQ.12         is x      'DX10 Diagnosis Unique Lev 12
+C.DX10.DXRANK.12     is x      'DX10 Diagnosis Rank Lev 12
+C.DX10.UNIQ.12       is x      'DX10 Diagnosis Unique Lev 12
 C.DX10.ICD10.13      is x      'DX10 ICD10 Code Lev 13
-C.DX10.ICD9.13         is x      'DX10 ICD9 Code Lev 13
+C.DX10.ICD9.13       is x      'DX10 ICD9 Code Lev 13
 C.DX10.LEGAX.13      is x      'DX10 Legacy Axis Lev 13
 C.DX10.DXCAT.13      is x      'DX10 Diagnosis Category Lev 13
-C.DX10.DXRANK.13      is x      'DX10 Diagnosis Rank Lev 13
-C.DX10.UNIQ.13         is x      'DX10 Diagnosis Unique Lev 13
+C.DX10.DXRANK.13     is x      'DX10 Diagnosis Rank Lev 13
+C.DX10.UNIQ.13       is x      'DX10 Diagnosis Unique Lev 13
 C.DX10.ICD10.14      is x      'DX10 ICD10 Code Lev 14
-C.DX10.ICD9.14         is x      'DX10 ICD9 Code Lev 14
+C.DX10.ICD9.14       is x      'DX10 ICD9 Code Lev 14
 C.DX10.LEGAX.14      is x      'DX10 Legacy Axis Lev 14
 C.DX10.DXCAT.14      is x      'DX10 Diagnosis Category Lev 14
-C.DX10.DXRANK.14      is x      'DX10 Diagnosis Rank Lev 14
-C.DX10.UNIQ.14         is x      'DX10 Diagnosis Unique Lev 14
+C.DX10.DXRANK.14     is x      'DX10 Diagnosis Rank Lev 14
+C.DX10.UNIQ.14       is x      'DX10 Diagnosis Unique Lev 14
 C.DX10.ICD10.15      is x      'DX10 ICD10 Code Lev 15
-C.DX10.ICD9.15         is x      'DX10 ICD9 Code Lev 15
+C.DX10.ICD9.15       is x      'DX10 ICD9 Code Lev 15
 C.DX10.LEGAX.15      is x      'DX10 Legacy Axis Lev 15
 C.DX10.DXCAT.15      is x      'DX10 Diagnosis Category Lev 15
-C.DX10.DXRANK.15      is x      'DX10 Diagnosis Rank Lev 15
-C.DX10.UNIQ.15         is x      'DX10 Diagnosis Unique Lev 15
+C.DX10.DXRANK.15     is x      'DX10 Diagnosis Rank Lev 15
+C.DX10.UNIQ.15       is x      'DX10 Diagnosis Unique Lev 15
 C.DX10.ICD10.16      is x      'DX10 ICD10 Code Lev 16
-C.DX10.ICD9.16         is x      'DX10 ICD9 Code Lev 16
+C.DX10.ICD9.16       is x      'DX10 ICD9 Code Lev 16
 C.DX10.LEGAX.16      is x      'DX10 Legacy Axis Lev 16
 C.DX10.DXCAT.16      is x      'DX10 Diagnosis Category Lev 16
-C.DX10.DXRANK.16      is x      'DX10 Diagnosis Rank Lev 16
-C.DX10.UNIQ.16         is x      'DX10 Diagnosis Unique Lev 16
-C.DX10.A4.SUPGRP      is x      'DX10 Axis 4  Support Group
-C.DX10.A4.SOCENV      is x      'DX10 Axis 4  Social Environment
-C.DX10.A4.EDU         is x      'DX10 Axis 4  Education
-C.DX10.A4.OCC         is x      'DX10 Axis 4  Occupational
-C.DX10.A4.HOUSNG      is x      'DX10 Axis 4  Housing
-C.DX10.A4.ECO         is x      'DX10 Axis 4  Economic
-C.DX10.A4.HEALTH      is x      'DX10 Axis 4  Health Care
+C.DX10.DXRANK.16     is x      'DX10 Diagnosis Rank Lev 16
+C.DX10.UNIQ.16       is x      'DX10 Diagnosis Unique Lev 16
+C.DX10.A4.SUPGRP     is x      'DX10 Axis 4  Support Group
+C.DX10.A4.SOCENV     is x      'DX10 Axis 4  Social Environment
+C.DX10.A4.EDU        is x      'DX10 Axis 4  Education
+C.DX10.A4.OCC        is x      'DX10 Axis 4  Occupational
+C.DX10.A4.HOUSNG     is x      'DX10 Axis 4  Housing
+C.DX10.A4.ECO        is x      'DX10 Axis 4  Economic
+C.DX10.A4.HEALTH     is x      'DX10 Axis 4  Health Care
 C.DX10.A4.LEGAL      is x      'DX10 Axis 4  Legal/Crime
-C.DX10.A4.PSYENV      is x       'DX10 Axis 4  Psy/Environment
-C.DX10.A4.NONE         is x      'DX10 Axis 4  None
-C.DX10.A5.GAF         is b      'DX10 Axis 5 GAF
+C.DX10.A4.PSYENV     is x       'DX10 Axis 4  Psy/Environment
+C.DX10.A4.NONE       is x      'DX10 Axis 4  None
+C.DX10.A5.GAF        is b      'DX10 Axis 5 GAF
 C.DX10.CURR.ABL      is x      'DX10 Current ABL
-C.DX10.POT.ABL         is x      'DX10 Potential ABL
-C.DX10.COMMENT         is x      'DX10 COMMENT
-C.DX10.SNAPID         is x      'DX10 SNAPID
-C.DX10.ISN         is x      'DX10 ISN
-C.DX10.STAT         is x      'DX10 Status
+C.DX10.POT.ABL       is x      'DX10 Potential ABL
+C.DX10.COMMENT       is x      'DX10 COMMENT
+C.DX10.SNAPID        is x      'DX10 SNAPID
+C.DX10.ISN           is x      'DX10 ISN
+C.DX10.STAT          is x      'DX10 Status
 
 
 'My Variables
-rc               is n
-prc               is n
-listid            is x
-step               is i
-id[]               is x
-ThePath            is x
-DataLine            is x
-|               is x      | = "|"
-DX10.DT            is x
-DX10.ENTDT         is x
-DX10.CAREDT         is x
+rc                   is n
+prc                  is n
+listid               is x
+step                 is i
+id[]                 is x
+ThePath              is x
+DataLine             is x
+|                    is x      | = "|"
+DX10.DT              is x
+DX10.ENTDT           is x
+DX10.CAREDT          is x
 DX10.TIME            is x
-DX10.ENTTM         is x
-DX10.EXPIRE         is x
-findt            is x
-TheReg            is x
+DX10.ENTTM           is x
+DX10.EXPIRE          is x
+findt                is x
+TheReg               is x
 
 ThePath = "/c0/user/rob/dxtest"
 listid = "T031"
@@ -174,25 +174,25 @@ endif
 'Begin Search the Top Layer of Diagnosis Records
 do while ++step < $maxarray(id[])
 
-      'ICD10
-      rc = $dbread(2,id[step],
-      C.DX10.RH, C.DX10.STAFF,C.DX10.ENTSTAFF,C.DX10.DT,C.DX10.TIME,C.DX10.ENTDT,C.DX10.ENTTM,C.DX10.CAREDT,C.DX10.REASON,C.DX10.EXPIRE,C.DX10.PIMARY.AX,C.DX10.ICD10.1,
-      C.DX10.ICD9.1,C.DX10.LEGAX.1,C.DX10.DXCAT.1,C.DX10.DXRANK.1,C.DX10.UNIQ.1,C.DX10.ICD10.2,C.DX10.ICD9.2,C.DX10.LEGAX.2,C.DX10.DXCAT.2,C.DX10.DXRANK.2,C.DX10.UNIQ.2,
-      C.DX10.ICD10.3,C.DX10.ICD9.3,C.DX10.LEGAX.3,C.DX10.DXCAT.3,C.DX10.DXRANK.3,C.DX10.UNIQ.3,C.DX10.ICD10.4,C.DX10.ICD9.4,C.DX10.LEGAX.4,C.DX10.DXCAT.4,C.DX10.DXRANK.4,
-      C.DX10.UNIQ.4,C.DX10.ICD10.5,C.DX10.ICD9.5,C.DX10.LEGAX.5,C.DX10.DXCAT.5,C.DX10.DXRANK.5,C.DX10.UNIQ.5,C.DX10.ICD10.6,C.DX10.ICD9.6,C.DX10.LEGAX.6,C.DX10.DXCAT.6,
-      C.DX10.DXRANK.6,C.DX10.UNIQ.6,C.DX10.ICD10.7,C.DX10.ICD9.7,C.DX10.LEGAX.7,C.DX10.DXCAT.7,C.DX10.DXRANK.7,C.DX10.UNIQ.7,C.DX10.ICD10.8,C.DX10.ICD9.8,C.DX10.LEGAX.8,
-      C.DX10.DXCAT.8,C.DX10.DXRANK.8,C.DX10.UNIQ.8,C.DX10.ICD10.9,C.DX10.ICD9.9,C.DX10.LEGAX.9,C.DX10.DXCAT.9,C.DX10.DXRANK.9,C.DX10.UNIQ.9,C.DX10.ICD10.10,C.DX10.ICD9.10,
-      C.DX10.LEGAX.10,C.DX10.DXCAT.10,C.DX10.DXRANK.10,C.DX10.UNIQ.10,C.DX10.ICD10.11,C.DX10.ICD9.11,C.DX10.LEGAX.11,C.DX10.DXCAT.11,C.DX10.DXRANK.11,C.DX10.UNIQ.11,
-      C.DX10.ICD10.12,C.DX10.ICD9.12,C.DX10.LEGAX.12,C.DX10.DXCAT.12,C.DX10.DXRANK.12,C.DX10.UNIQ.12,C.DX10.ICD10.13,C.DX10.ICD9.13,C.DX10.LEGAX.13,C.DX10.DXCAT.13,
-      C.DX10.DXRANK.13,C.DX10.UNIQ.13,C.DX10.ICD10.14,C.DX10.ICD9.14,C.DX10.LEGAX.14,C.DX10.DXCAT.14,C.DX10.DXRANK.14,C.DX10.UNIQ.14,C.DX10.ICD10.15,C.DX10.ICD9.15,
-      C.DX10.LEGAX.15,C.DX10.DXCAT.15,C.DX10.DXRANK.15,C.DX10.UNIQ.15,C.DX10.ICD10.16,C.DX10.ICD9.16,C.DX10.LEGAX.16,C.DX10.DXCAT.16,C.DX10.DXRANK.16,C.DX10.UNIQ.16,
-      C.DX10.A4.SUPGRP,C.DX10.A4.SOCENV,C.DX10.A4.EDU,C.DX10.A4.OCC,C.DX10.A4.HOUSNG,C.DX10.A4.ECO,C.DX10.A4.HEALTH,C.DX10.A4.LEGAL,C.DX10.A4.PSYENV,C.DX10.A4.NONE,
-      C.DX10.A5.GAF,C.DX10.CURR.ABL,C.DX10.POT.ABL,C.DX10.COMMENT,C.DX10.SNAPID,C.DX10.ISN,C.DX10.STAT)
+   'ICD10
+   rc = $dbread(2,id[step],
+   C.DX10.RH, C.DX10.STAFF,C.DX10.ENTSTAFF,C.DX10.DT,C.DX10.TIME,C.DX10.ENTDT,C.DX10.ENTTM,C.DX10.CAREDT,C.DX10.REASON,C.DX10.EXPIRE,C.DX10.PIMARY.AX,C.DX10.ICD10.1,
+   C.DX10.ICD9.1,C.DX10.LEGAX.1,C.DX10.DXCAT.1,C.DX10.DXRANK.1,C.DX10.UNIQ.1,C.DX10.ICD10.2,C.DX10.ICD9.2,C.DX10.LEGAX.2,C.DX10.DXCAT.2,C.DX10.DXRANK.2,C.DX10.UNIQ.2,
+   C.DX10.ICD10.3,C.DX10.ICD9.3,C.DX10.LEGAX.3,C.DX10.DXCAT.3,C.DX10.DXRANK.3,C.DX10.UNIQ.3,C.DX10.ICD10.4,C.DX10.ICD9.4,C.DX10.LEGAX.4,C.DX10.DXCAT.4,C.DX10.DXRANK.4,
+   C.DX10.UNIQ.4,C.DX10.ICD10.5,C.DX10.ICD9.5,C.DX10.LEGAX.5,C.DX10.DXCAT.5,C.DX10.DXRANK.5,C.DX10.UNIQ.5,C.DX10.ICD10.6,C.DX10.ICD9.6,C.DX10.LEGAX.6,C.DX10.DXCAT.6,
+   C.DX10.DXRANK.6,C.DX10.UNIQ.6,C.DX10.ICD10.7,C.DX10.ICD9.7,C.DX10.LEGAX.7,C.DX10.DXCAT.7,C.DX10.DXRANK.7,C.DX10.UNIQ.7,C.DX10.ICD10.8,C.DX10.ICD9.8,C.DX10.LEGAX.8,
+   C.DX10.DXCAT.8,C.DX10.DXRANK.8,C.DX10.UNIQ.8,C.DX10.ICD10.9,C.DX10.ICD9.9,C.DX10.LEGAX.9,C.DX10.DXCAT.9,C.DX10.DXRANK.9,C.DX10.UNIQ.9,C.DX10.ICD10.10,C.DX10.ICD9.10,
+   C.DX10.LEGAX.10,C.DX10.DXCAT.10,C.DX10.DXRANK.10,C.DX10.UNIQ.10,C.DX10.ICD10.11,C.DX10.ICD9.11,C.DX10.LEGAX.11,C.DX10.DXCAT.11,C.DX10.DXRANK.11,C.DX10.UNIQ.11,
+   C.DX10.ICD10.12,C.DX10.ICD9.12,C.DX10.LEGAX.12,C.DX10.DXCAT.12,C.DX10.DXRANK.12,C.DX10.UNIQ.12,C.DX10.ICD10.13,C.DX10.ICD9.13,C.DX10.LEGAX.13,C.DX10.DXCAT.13,
+   C.DX10.DXRANK.13,C.DX10.UNIQ.13,C.DX10.ICD10.14,C.DX10.ICD9.14,C.DX10.LEGAX.14,C.DX10.DXCAT.14,C.DX10.DXRANK.14,C.DX10.UNIQ.14,C.DX10.ICD10.15,C.DX10.ICD9.15,
+   C.DX10.LEGAX.15,C.DX10.DXCAT.15,C.DX10.DXRANK.15,C.DX10.UNIQ.15,C.DX10.ICD10.16,C.DX10.ICD9.16,C.DX10.LEGAX.16,C.DX10.DXCAT.16,C.DX10.DXRANK.16,C.DX10.UNIQ.16,
+   C.DX10.A4.SUPGRP,C.DX10.A4.SOCENV,C.DX10.A4.EDU,C.DX10.A4.OCC,C.DX10.A4.HOUSNG,C.DX10.A4.ECO,C.DX10.A4.HEALTH,C.DX10.A4.LEGAL,C.DX10.A4.PSYENV,C.DX10.A4.NONE,
+   C.DX10.A5.GAF,C.DX10.CURR.ABL,C.DX10.POT.ABL,C.DX10.COMMENT,C.DX10.SNAPID,C.DX10.ISN,C.DX10.STAT)
 
 
 
    TheReg = id[step]
-      do while rc < 2
+   do while rc < 2
 
       if C.DX10.DT !DP Then
           DX10.DT = $format(C.DX10.DT,"MMDDYY")
@@ -257,10 +257,7 @@ do while ++step < $maxarray(id[])
             + | + C.DX10.A4.NONE + | + C.DX10.A5.GAF + | + C.DX10.CURR.ABL + | + C.DX10.POT.ABL + | + C.DX10.COMMENT
             + | + C.DX10.SNAPID + | + C.DX10.ISN + | + C.DX10.STAT
 
-
-        prc = $writefile(1,DataLine)
-
-
+      prc = $writefile(1,DataLine)
 
       'ICD10
       rc = $dbreadnextdst(2,id[step],
@@ -277,13 +274,9 @@ do while ++step < $maxarray(id[])
       C.DX10.A4.SUPGRP,C.DX10.A4.SOCENV,C.DX10.A4.EDU,C.DX10.A4.OCC,C.DX10.A4.HOUSNG,C.DX10.A4.ECO,C.DX10.A4.HEALTH,C.DX10.A4.LEGAL,C.DX10.A4.PSYENV,C.DX10.A4.NONE,
       C.DX10.A5.GAF,C.DX10.CURR.ABL,C.DX10.POT.ABL,C.DX10.COMMENT,C.DX10.SNAPID,C.DX10.ISN,C.DX10.STAT)
 
-
-
    enddo
 
 enddo
-
-
 
 end ussqldx10
 
