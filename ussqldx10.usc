@@ -1,15 +1,15 @@
 'Extract a list ofICD 10 Diagnosis from the clients to import into SQL
 'Author Rob Beckham
 
-start ussqldx10()
+start ussqldx10(parmfile, option, retcode)
 
-'$trace("path", "/c1/RAUT/SCRIPT/S/rtrace")
-'$trace("on")
+parmfile             is x
+option               is x
+retcode              is b
 
 $looplimit = 0
 
-
-'ICD 10
+'ICD 10 dsts
 
 C.DX10.RH            is h      'DX10 Record Header
 C.DX10.STAFF         is x      'DX10 Diagnosing Staff
@@ -136,7 +136,6 @@ C.DX10.SNAPID        is x      'DX10 SNAPID
 C.DX10.ISN           is x      'DX10 ISN
 C.DX10.STAT          is x      'DX10 Status
 
-
 'My Variables
 rc                   is n
 prc                  is n
@@ -144,6 +143,7 @@ listid               is x
 step                 is i
 id[]                 is x
 ThePath              is x
+TracePath            is x
 DataLine             is x
 |                    is x      | = "|"
 DX10.DT              is x
@@ -158,6 +158,13 @@ TheReg               is x
 ThePath = "/c0/user/rob/dxtest"
 listid = "T031"
 step = 0
+
+GetParm(parmfile)
+GetOption(option)
+
+if TracePath dp then
+   $trace("path,on", TracePath)
+endif
 
 'Function to Get Saved List
 rc = $getlist(id[], 2, listid)
@@ -188,8 +195,6 @@ do while ++step < $maxarray(id[])
    C.DX10.LEGAX.15,C.DX10.DXCAT.15,C.DX10.DXRANK.15,C.DX10.UNIQ.15,C.DX10.ICD10.16,C.DX10.ICD9.16,C.DX10.LEGAX.16,C.DX10.DXCAT.16,C.DX10.DXRANK.16,C.DX10.UNIQ.16,
    C.DX10.A4.SUPGRP,C.DX10.A4.SOCENV,C.DX10.A4.EDU,C.DX10.A4.OCC,C.DX10.A4.HOUSNG,C.DX10.A4.ECO,C.DX10.A4.HEALTH,C.DX10.A4.LEGAL,C.DX10.A4.PSYENV,C.DX10.A4.NONE,
    C.DX10.A5.GAF,C.DX10.CURR.ABL,C.DX10.POT.ABL,C.DX10.COMMENT,C.DX10.SNAPID,C.DX10.ISN,C.DX10.STAT)
-
-
 
    TheReg = id[step]
    do while rc < 2
@@ -280,3 +285,5 @@ enddo
 
 end ussqldx10
 
+%include inc_GetParm
+%include inc_GetOption
