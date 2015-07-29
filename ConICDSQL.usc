@@ -105,6 +105,16 @@ start ConICDSQL(parmfile, option, retcode)
    MAP_C.DXACT       is x         ' Reason for Action
    MAP_C.CR.DIAG     is d         ' Sent to CARE Flag
 
+   map_a4_supgrp     is x
+   map_a4_socenv     is x
+   map_a4_edu        is x
+   map_a4_occ        is x
+   map_a4_housing    is x
+   map_a4_eco        is x
+   map_a4_health     is x
+   map_a4_legal      is x
+   map_a4_psyenv     is x
+   map_a4_none       is x
 
 ' ICD-10 Diagnosis
    C.DX10.RH          is h         ' ICD-10 Record Header
@@ -260,6 +270,17 @@ start ConICDSQL(parmfile, option, retcode)
    MAP_c.pa.aav    = $varname(c.pa.aav     )  
    MAP_C.DXACT     = $varname(C.DXACT      )  
    MAP_C.CR.DIAG   = $varname(C.CR.DIAG    )  
+
+   map_a4_supgrp  = "A"
+   map_a4_socenv  = "B"
+   map_a4_edu     = "C"
+   map_a4_occ     = "D"
+   map_a4_housing = "E"
+   map_a4_eco     = "F"
+   map_a4_health  = "G"
+   map_a4_legal   = "H"
+   map_a4_psyenv  = "I"
+   map_a4_none    = "J"
 
    'get the parmfile configurations
    getparm(parmfile)
@@ -652,16 +673,36 @@ convertErr = "N"        ' No conversion Error
       $clear(axis4Code[])
 
       ' Stick all the Axis 4 Codes into one array
-      (void) $arrPush(axis4Code[], c.pa.aaiv   )
-      (void) $arrPush(axis4Code[], c.dxaxlvl2 )
-      (void) $arrPush(axis4Code[], c.axdxlvl3 )
-      (void) $arrPush(axis4Code[], c.dxaxlvl4 )
-      (void) $arrPush(axis4Code[], c.dxaxlvl5 )
-      (void) $arrPush(axis4Code[], c.dxaxlvl6 )
-      (void) $arrPush(axis4Code[], c.dxaxlvl7 )
-      (void) $arrPush(axis4Code[], c.dxaxlvl8 )
-      (void) $arrPush(axis4Code[], c.dxaxlvl9)
-      (void) $arrPush(axis4Code[], c.dxaxlvl0 )
+      if c.pa.aaiv dp then
+         (void) $arrPush(axis4Code[], "A"   )
+      endif
+      if c.dxaxlvl2 dp then 
+         (void) $arrPush(axis4Code[], "B")
+      endif
+      if c.axdxlvl3 dp then 
+         (void) $arrPush(axis4Code[], "C")
+      endif
+      if c.dxaxlvl4 dp then 
+         (void) $arrPush(axis4Code[], "D")
+      endif
+      if c.dxaxlvl5 dp then 
+         (void) $arrPush(axis4Code[], "E")
+      endif
+      if c.dxaxlvl6 dp then 
+         (void) $arrPush(axis4Code[], "F")
+      endif
+      if c.dxaxlvl7 dp then 
+         (void) $arrPush(axis4Code[], "G")
+      endif
+      if c.dxaxlvl8 dp then 
+         (void) $arrPush(axis4Code[], "H")
+      endif
+      if c.dxaxlvl9 dp then 
+         (void) $arrPush(axis4Code[], "I")
+      endif
+      if c.dxaxlvl0 dp then 
+         (void) $arrPush(axis4Code[], "J")
+      endif
 
       ' Remove empty rows
       (void) $sortu(axis4Code[])
@@ -784,16 +825,16 @@ convertErr = "N"        ' No conversion Error
       endif
 
       ' Set Axis 4 Codes
-      if $find("A", axis4Code[],,"F") > 0 then   C.DX10.A4.SUPGRP  = "A"   else    $clear(C.DX10.A4.SUPGRP ) endif
-      if $find("B", axis4Code[],,"F") > 0 then   C.DX10.A4.SOCENV  = "B"   else    $clear(C.DX10.A4.SOCENV ) endif
-      if $find("C", axis4Code[],,"F") > 0 then   C.DX10.A4.EDU     = "C"   else    $clear(C.DX10.A4.EDU    ) endif
-      if $find("D", axis4Code[],,"F") > 0 then   C.DX10.A4.OCC     = "D"   else    $clear(C.DX10.A4.OCC    ) endif
-      if $find("E", axis4Code[],,"F") > 0 then   C.DX10.A4.HOUSNG  = "E"   else    $clear(C.DX10.A4.HOUSNG ) endif
-      if $find("F", axis4Code[],,"F") > 0 then   C.DX10.A4.ECO     = "F"   else    $clear(C.DX10.A4.ECO    ) endif
-      if $find("G", axis4Code[],,"F") > 0 then   C.DX10.A4.HEALTH  = "G"   else    $clear(C.DX10.A4.HEALTH ) endif
-      if $find("H", axis4Code[],,"F") > 0 then   C.DX10.A4.LEGAL   = "H"   else    $clear(C.DX10.A4.LEGAL  ) endif
-      if $find("I", axis4Code[],,"F") > 0 then   C.DX10.A4.PSYENV  = "I"   else    $clear(C.DX10.A4.PSYENV ) endif
-      if $find("J", axis4Code[],,"F") > 0 then   C.DX10.A4.NONE    = "J"   else    $clear(C.DX10.A4.NONE   ) endif
+      if $find("A", axis4Code[],,"F") > 0 then   C.DX10.A4.SUPGRP  = map_a4_supgrp   else    $clear(C.DX10.A4.SUPGRP ) endif
+      if $find("B", axis4Code[],,"F") > 0 then   C.DX10.A4.SOCENV  = map_a4_socenv   else    $clear(C.DX10.A4.SOCENV ) endif
+      if $find("C", axis4Code[],,"F") > 0 then   C.DX10.A4.EDU     = map_a4_edu      else    $clear(C.DX10.A4.EDU    ) endif
+      if $find("D", axis4Code[],,"F") > 0 then   C.DX10.A4.OCC     = map_a4_occ      else    $clear(C.DX10.A4.OCC    ) endif
+      if $find("E", axis4Code[],,"F") > 0 then   C.DX10.A4.HOUSNG  = map_a4_housing  else    $clear(C.DX10.A4.HOUSNG ) endif
+      if $find("F", axis4Code[],,"F") > 0 then   C.DX10.A4.ECO     = map_a4_eco      else    $clear(C.DX10.A4.ECO    ) endif
+      if $find("G", axis4Code[],,"F") > 0 then   C.DX10.A4.HEALTH  = map_a4_health   else    $clear(C.DX10.A4.HEALTH ) endif
+      if $find("H", axis4Code[],,"F") > 0 then   C.DX10.A4.LEGAL   = map_a4_legal    else    $clear(C.DX10.A4.LEGAL  ) endif
+      if $find("I", axis4Code[],,"F") > 0 then   C.DX10.A4.PSYENV  = map_a4_psyenv   else    $clear(C.DX10.A4.PSYENV ) endif
+      if $find("J", axis4Code[],,"F") > 0 then   C.DX10.A4.NONE    = map_a4_none     else    $clear(C.DX10.A4.NONE   ) endif
 
       '=================================================
       ' This section writes the data to the ICD10 record
