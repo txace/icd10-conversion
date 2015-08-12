@@ -8,6 +8,8 @@
 '   AUTHOR: Rob Beckham
 '   DATE CREATED: 6/29/2015
 
+%define C_ISCONVERTED "Y"
+
 start ConICDSQL(parmfile, option, retcode)
 
    parmfile          is x        ' Configuration File
@@ -103,7 +105,7 @@ start ConICDSQL(parmfile, option, retcode)
    MAP_c.dxaxlvl0    is x
    MAP_c.pa.aav      is x
    MAP_C.DXACT       is x         ' Reason for Action
-   MAP_C.CR.DIAG     is d         ' Sent to CARE Flag
+   MAP_C.CR.DIAG     is x         ' Sent to CARE Flag
 
    map_a4_supgrp     is x
    map_a4_socenv     is x
@@ -135,6 +137,7 @@ start ConICDSQL(parmfile, option, retcode)
    C.DX10.A4.NONE     is x         ' No Issues
    C.DX10.A5.GAF      is b         ' Axis 5 (GAF Score)
    C.DX10.CAREDT      is d         ' Sent to CARE Date
+   C.DX10.CONVERTED   is x         ' Converted Record Flag
 
    TheUniq[]          is x
    The9DX[]           is x
@@ -751,6 +754,7 @@ convertErr = "N"        ' No conversion Error
       C.DX10.A5.GAF      = c.pa.aav      ' Set Axis 5 (GAF)
       C.DX10.PIMARY.AX   = c.pridx         ' Set Primary Axis of DX
 
+      C.DX10.CONVERTED   = C_ISCONVERTED   ' Set the Converted DST
 
       if The9DX[1] DP
          C.DX10.UNIQ.1    = TheUniq[1]
@@ -843,7 +847,7 @@ convertErr = "N"        ' No conversion Error
       rc = $dbread( 2, id[clientstep], C.DX10.RH)
       ' Insert the ICD-10 Diagnosis
       rc = $dbadddst( 2, id[clientstep],
-      C.DX10.RH, C.DX10.DT, C.DX10.STAFF, C.DX10.REASON, C.DX10.A5.GAF, C.DX10.CAREDT, C.DX10.PIMARY.AX,
+      C.DX10.RH, C.DX10.DT, C.DX10.STAFF, C.DX10.REASON, C.DX10.A5.GAF, C.DX10.CAREDT, C.DX10.PIMARY.AX, C.DX10.CONVERTED,
 
       c.dx10.uniq.1, c.dx10.icd9.1, c.dx10.icd10.1, c.dx10.legax.1, c.dx10.dxcat.1,
       c.dx10.uniq.2, c.dx10.icd9.2, c.dx10.icd10.2, c.dx10.legax.2, c.dx10.dxcat.2,
