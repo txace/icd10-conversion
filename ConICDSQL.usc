@@ -105,7 +105,7 @@ start ConICDSQL(parmfile, option, retcode)
    MAP_c.dxaxlvl0    is x
    MAP_c.pa.aav      is x
    MAP_C.DXACT       is x         ' Reason for Action
-   MAP_C.CR.DIAG     is d         ' Sent to CARE Flag
+   MAP_C.CR.DIAG     is x         ' Sent to CARE Flag
 
    map_a4_supgrp     is x
    map_a4_socenv     is x
