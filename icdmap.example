@@ -1,0 +1,57 @@
+*Configurations for ConICDSQL script
+*EXAMPLE PARMFILE CONFIGURATION 
+*
+* configure the trace
+tracepath $SYS_/SCRIPT/S/icd.trace
+*
+* configure the saved list
+list_sql {{sql query to generate a saved list}}
+save_sql_list Y
+listid-1 all-clt
+*
+* configure the sql access
+o_user {{sql user id}}
+o_pass {{sql user pass}}
+o_host {{sql host}}
+o_db {{sql database}}
+*
+* map the dst names
+MAP_c.dx.rh {{dx record header}}
+MAP_c.dg.id {{dx entry staff id}}
+MAP_c.dxstaf {{dx staff id}}
+MAP_c.dxdate {{dx date}}
+MAP_c.pridx  {{dx primary axis}}
+MAP_c.pa.aai {{dx axis 1 level 1}}
+MAP_c.pa.adsa1 {{dx axis 1 level 2}}
+MAP_c.dxaslev {{dx axis 1 level 3 }}
+MAP_c.pa.aaii {{dx axis 2 level 1 }}
+MAP_c.pa.adsa2 {{dx axis 2 level 2 }}
+MAP_c.dxaxlev3 {{dx axis 2 level 3}}
+MAP_c.pa.aaiii {{dx axis 3 level 1}}
+MAP_c.pa.adsa3 {{dx axis 3 level 2}}
+MAP_c.pa.adsa3a {{dx axis 3 level 3}}
+MAP_c.pa.aaiv {{dx axis 4 A}}
+MAP_c.dxaxlvl2 {{dx axis 4 B}}
+MAP_c.axdxlvl3 {{dx axis 4 C}}
+MAP_c.dxaxlvl4 {{dx axis 4 D}}
+MAP_c.dxaxlvl5 {{dx axis 4 E}}
+MAP_c.dxaxlvl6 {{dx axis 4 F}}
+MAP_c.dxaxlvl7 {{dx axis 4 J}}
+MAP_c.dxaxlvl8 {{dx axis 4 K}}
+MAP_c.dxaxlvl9 {{dx axis 4 I}}
+MAP_c.dxaxlvl0 {{dx axis 4 j}}
+MAP_c.pa.aav {{dx axis 5}}
+MAP_C.DXACT {{dx reason}}
+MAP_C.CR.DIAG {{dx care batch date}}
+*
+* map the axis 4 values
+map_a4_supgrp Y
+map_a4_socenv Y
+map_a4_edu Y
+map_a4_occ Y
+map_a4_housing Y
+map_a4_eco Y
+map_a4_health Y
+map_a4_legal Y
+map_a4_psyenv Y
+map_a4_none Y
