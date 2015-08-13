@@ -31,6 +31,7 @@ start ConICDSQL(parmfile, option, retcode)
    hdr[]             is  x       ' Report header lines
    reportFmt         is  x       ' Report Detail Format Line
    PrintString       is  x       ' Output Concatenation String
+   dsttype           is  x       ' dst type code - use for setting gaf type
 
 ' Prompts
    reportOnly        is  x       ' Flag for report only (Y/N)
@@ -73,7 +74,7 @@ start ConICDSQL(parmfile, option, retcode)
    c.dxaxlvl8        is x         ' AXIS 4 H DIAGNOSIS DST
    c.dxaxlvl9        is x         ' AXIS 4 I DIAGNOSIS DST
    c.dxaxlvl0        is x         ' AXIS 4 J DIAGNOSIS DST
-   c.pa.aav          is x         ' GAF CURRENT SCORE DST
+   c.pa.aav          is v         ' GAF CURRENT SCORE DST
 
 'C.ASSESOTH   is x   Outside Assessing Staff Name
    C.DXACT           is x         ' Reason for Action
@@ -293,6 +294,9 @@ start ConICDSQL(parmfile, option, retcode)
    if tracepath dp then
       $trace("path,on", tracepath)
    endif
+
+   dsttype = $dsttype(c.pa.aav)
+   $setvartype(c.pa.aav, dsttype) 
 
    rc = $loadlib(libf,"LIB-freetds")
 
