@@ -295,9 +295,6 @@ start ConICDSQL(parmfile, option, retcode)
       $trace("path,on", tracepath)
    endif
 
-   dsttype = $dsttype(c.pa.aav)
-   $setvartype(c.pa.aav, dsttype) 
-
    rc = $loadlib(libf,"LIB-freetds")
 
    dsn = o_user + ":" + o_pass + ":" + o_host + ":" + o_db
@@ -354,6 +351,9 @@ start ConICDSQL(parmfile, option, retcode)
    $setvarname(c.pa.aav    , MAP_c.pa.aav    )  
    $setvarname(C.DXACT     , MAP_C.DXACT     )  
    $setvarname(C.CR.DIAG   , MAP_C.CR.DIAG   )  
+
+   dsttype = $dsttype(c.pa.aav)
+   $setvartype(c.pa.aav, dsttype) 
 
 '=================================================
 ' Some Screen / Prompt Stuff
