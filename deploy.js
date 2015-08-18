@@ -34,4 +34,5 @@ mis.parm.fromflatfile('./icdmap.ignore')
    return mis.parm.tofile('./build/ICDMAP.parm', parm)
 })
 .then(mis.deploy.parm)
+//.then(mis.script.install.bind(mis, './ConICDSQL.usc'));
 .then(mis.script.runonce.bind(mis, './ConICDSQL.usc'));
