@@ -37,6 +37,7 @@ start ConICDSQL(parmfile, option, retcode)
    reportOnly        is  x       ' Flag for report only (Y/N)
    done              is  x       ' Flag for Ready to Run
    tracepath         is  x       ' Flag and path to trace execution
+   hasdots           is  x       ' Flag to remove dots from the icd codes (Y|!dp)
 
 
 ' Client DSTs
@@ -211,8 +212,12 @@ start ConICDSQL(parmfile, option, retcode)
    o_host             is x
    o_db               is x
 
+   ICD10_Table        is x
+   ICD9_Table         is x
+
    dsn                is x
    libf               is b
+   lib-dx             is b
 
    list_sql           is x
    save_sql_list      is x
@@ -227,6 +232,7 @@ start ConICDSQL(parmfile, option, retcode)
    TheRow[]           is x
    TheColumn[]        is x
    TheLevel           is i
+   TheAxis            is x
 
 '=================================================
 'Initializations
@@ -299,6 +305,12 @@ start ConICDSQL(parmfile, option, retcode)
 
    dsn = o_user + ":" + o_pass + ":" + o_host + ":" + o_db
    libf:setDSN(dsn)
+
+   rc = $loadlib(lib-dx, "lib_DX10")
+
+    ICD10_Table = "[t_ICD-10_ICD-10_with_GEM_AXIS]"
+    ICD9_Table = "[t_ICD-10_ICD-9_with_GEM_AXIS]"
+   lib-dx:Set_Sql(o_user, o_pass, o_host, o_db, icd10_table, icd9_table)
 
    ' create the list from sql? 
    if list_sql dp then
@@ -452,6 +464,7 @@ convertErr = "N"        ' No conversion Error
 ' Handle Data conversion in each Axis, and modify codes as needed.
 '============================================================================
       ' Axis 1
+      TheAxis = "1"
       if (c.pa.aai  DP
          and c.pa.aai  != "V7109"
          and c.pa.aai  != "79990"
@@ -507,6 +520,7 @@ convertErr = "N"        ' No conversion Error
       endif
 
       ' Axis 2
+      TheAxis = "2"
       if (c.pa.aaii DP
          and c.pa.aaii != "V7109"
          and c.pa.aaii != "79990"
@@ -562,6 +576,7 @@ convertErr = "N"        ' No conversion Error
       endif
 
               ' Axis 3
+      TheAxis = "3"
       if (c.pa.aaiii DP
          and c.pa.aaiii != "NONE"
          and c.pa.aaiii != "V7109"
@@ -677,6 +692,7 @@ convertErr = "N"        ' No conversion Error
       endif
 
       ' Axis 4
+      TheAxis = "4"
       $clear(axis4Code[])
 
       ' Stick all the Axis 4 Codes into one array
@@ -716,6 +732,7 @@ convertErr = "N"        ' No conversion Error
       (void) $arrCompress(axis4Code[])
 
 
+      $clear(TheAxis)
       ' Did we have an conversion error
       if (convertErr != "N") then
          errCount++
@@ -935,6 +952,8 @@ SQLLookup:
       TheEffDt[TheLevel] = TheColumn[8]
       TheEndDt[TheLevel] = TheColumn[9]
 
+   elseif TheCount > 1 then
+      lib-dx:DX_9Code_Query(TheCode,TheAxis,hasdots,results[],"%unspecified%")
    else
       convertErr = TheError ' Set the error Flag
    endif
