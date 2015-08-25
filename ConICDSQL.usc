@@ -234,6 +234,10 @@ start ConICDSQL(parmfile, option, retcode)
    TheLevel           is i
    TheAxis            is x
 
+   unspecCount        is b
+   onetooneCount      is b
+   successCount       is b
+   secondary          is x
 '=================================================
 'Initializations
 '=================================================
@@ -243,6 +247,9 @@ start ConICDSQL(parmfile, option, retcode)
    clientstep  = 0            ' No Clients read yet
    errCount    = 0            ' Number of errors
    TheCount    = 0
+   unspecCount = 0
+   onetooneCount = 0
+   successCount = 0
    listid[1]   = "T031"       ' The Client Saved List to Loop Through
    'list_sql
 
@@ -911,6 +918,12 @@ enddo
 '=================================================
 ' Clean up for close out
 '=================================================
+(void)$print(1, `$format(NbrClients, "Clients Processed: ZZZ,ZZ9")`)
+(void)$print(1, `$format(errCount, "Errors: ZZZ,ZZ9")`)
+(void)$print(1, `$format(unspecCount, "Unspecified Count: ZZZ,ZZ9")`)
+(void)$print(1, `$format(onetooneCount, "One to One Count: ZZZ,ZZ9")`)
+(void)$print(1, `$format(successCount, "Success Count: ZZZ,ZZ9")`)
+
 (void) $closereport(1)
 
 ExitNow:
@@ -937,8 +950,22 @@ SQLLookup:
 
    TheCount = $maxarray(TheRow[])
    CountStr = $castx(TheCount)
-   If TheCount = 1 then
+   secondary = "N"
 
+   if TheCount > 1 then
+      lib-dx:DX_9Code_Query(TheCode,TheAxis,hasdots,TheRow[],"%unspecified%")
+      TheCount = $maxarray(TheRow[])
+      CountStr = $castx(TheCount)
+      secondary = "Y"
+   endif
+
+   If TheCount = 1 then
+      successCount++
+      if secondary = "Y" then
+         unspecCount++
+      else 
+         onetooneCount++
+      endif
      ' 1 - UniqID, 2 - ICD-9_Code, 3 - ICD-9Description, 4 - ICD-10_Code, 5 - ICD-10_Description, 6 - DSM-4_Axis, 7 - DX-CAT, 8 - EffDt, 9 - EndDt"
       $parsem(TheRow[], 1, "|", TheColumn[])
 
@@ -952,8 +979,6 @@ SQLLookup:
       TheEffDt[TheLevel] = TheColumn[8]
       TheEndDt[TheLevel] = TheColumn[9]
 
-   elseif TheCount > 1 then
-      lib-dx:DX_9Code_Query(TheCode,TheAxis,hasdots,results[],"%unspecified%")
    else
       convertErr = TheError ' Set the error Flag
    endif
